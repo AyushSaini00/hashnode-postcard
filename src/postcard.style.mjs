@@ -9,7 +9,6 @@ export const styles = `
     }
     .author-area {
         background: #303031;
-        color: #fff;
         padding: 1rem;
         display: flex;
         flex-direction: row-reverse;
@@ -23,7 +22,11 @@ export const styles = `
     }
     .author-name {
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        color: #fff;
+    }
+    .author-followers {
+        color: rgb(255, 255, 255);
     }
     .blogposts-area {
         background: #18191a;
@@ -63,5 +66,6 @@ export const styles = `
     }
     .post-cover-image{
         width: 100%;
+        border-radius: 5px;
     }
 `;

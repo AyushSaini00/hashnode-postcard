@@ -63,14 +63,17 @@ class Postcard extends HTMLElement {
     authorArea.innerHTML = `
         <img class="author-profile-photo" src="${photo}"  />
         <div>
-            <div class="author-name">${name}</div>
+            <div class="author-name">
+                ${name}
+            </div>
             ${
               this.dataset.followers === 'true'
-                ? `<p>${numFollowers} followers</p>`
+                ? `<p class="author-followers">${numFollowers} followers</p>`
                 : ''
             }
         </div>
     `;
+    blogpostsArea.innerHTML = '';
   }
 
   fetchPosts(query, variables = {}) {
@@ -112,7 +115,7 @@ class Postcard extends HTMLElement {
 
       this._shadowRoot.querySelector('.blogposts-area').innerHTML = `
             <a class="post-link" 
-               href="https://www.${this.dataset.username}.hashnode.dev/${
+               href="https://${this.dataset.username}.hashnode.dev/${
         post.slug
       }" 
                target="_blank" 
@@ -134,7 +137,11 @@ class Postcard extends HTMLElement {
                             ${post.totalReactions}
                         </div>
                     </div>
-                    <p class="post-brief">${post.brief}</p>
+                    ${
+                      this.dataset.brief === 'true'
+                        ? `<p class="post-brief">${post.brief}</p>`
+                        : ''
+                    }
                     ${
                       this.dataset.coverImage === 'true'
                         ? `<img 
