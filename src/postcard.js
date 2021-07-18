@@ -61,16 +61,23 @@ class Postcard extends HTMLElement {
     const blogpostsArea = this._shadowRoot.querySelector('.blogposts-area');
 
     authorArea.innerHTML = `
-        <img class="author-profile-photo" src="${photo}"  />
-        <div>
-            <div class="author-name">
-                ${name}
-            </div>
-            ${
-              this.dataset.followers === 'true'
-                ? `<p class="author-followers">${numFollowers} followers</p>`
-                : ''
-            }
+        <div class="author-profile-and-text">
+          ${photo ? `<img class="author-profile-photo" src="${photo}"  />` : ''}
+          <div>
+              <a href="https://hashnode.com/@${this.dataset.username}">
+                <div class="author-name">
+                    ${name}
+                </div>
+              </a>
+              
+              ${
+                numFollowers
+                  ? this.dataset.followers === 'true'
+                    ? `<p class="author-followers">${numFollowers} followers</p>`
+                    : ''
+                  : ''
+              }
+          </div>
         </div>
     `;
     blogpostsArea.innerHTML = '';
@@ -89,6 +96,12 @@ class Postcard extends HTMLElement {
     })
       .then((res) => res.json())
       .then((data) => {
+        //if user doesn't exists
+        if (data.data.user.name === null) {
+          this.createCard(this.dataset.username + " doesn't exist");
+          return;
+        }
+
         const {
           name,
           numFollowers,
@@ -103,9 +116,6 @@ class Postcard extends HTMLElement {
 
         this.createCard(this.name, this.numFollowers, this.photo);
         this.renderPosts(this.posts);
-
-        console.log(posts);
-        console.log(data.data.user);
       });
   }
 
@@ -159,12 +169,7 @@ class Postcard extends HTMLElement {
     });
   }
 
-  setWidth() {
-    this.style.width = this.dataset.width || '300px';
-  }
-
   render() {
-    this.setWidth();
     this.fetchPosts(this._GET_USER_ARTICLES, { page: 0 });
   }
 }
