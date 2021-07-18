@@ -12,7 +12,7 @@ template.innerHTML = `
 `;
 
 //extending to HTMLElements help to create custom html elements
-class Postcard extends HTMLElement {
+export class Postcard extends HTMLElement {
   constructor() {
     super();
 
