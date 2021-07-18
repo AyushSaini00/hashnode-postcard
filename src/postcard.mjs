@@ -195,8 +195,22 @@ class Postcard extends HTMLElement {
     }
   }
 
+  // fixPostLayout() {
+  //   if (this.dataset.width) {
+  //     let nodeElements = this.shadowRoot.childNodes[3].childNodes[3].childNodes;
+  //     console.log(nodeElements);
+  //     nodeElements.forEach((elem) => {
+  //       console.log(elem);
+  //       if (elem.nodeName == 'A') {
+  //         console.log(elem.childNodes);
+  //       }
+  //     });
+  //   }
+  // }
+
   render() {
     this.setWidth();
+    // this.fixPostLayout();
     this.fetchPosts(this._GET_USER_ARTICLES, { page: 0 });
   }
 }
