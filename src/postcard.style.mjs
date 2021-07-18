@@ -68,4 +68,18 @@ export const styles = `
         width: 100%;
         border-radius: 5px;
     }
+    @media screen and (min-width: 768px){
+        .post-card {
+            display: flex;
+            align-items: center;
+        }
+        .post-card-text {
+            width: 50%;
+            margin-right: 10%;
+        }
+        .post-cover-image{
+            width: 40%;
+            height: min-content;
+        }
+    }
 `;
