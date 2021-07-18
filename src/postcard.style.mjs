@@ -31,11 +31,17 @@ export const styles = `
     .blogposts-area {
         background: #18191a;
         color: #fff;
-        padding: 1rem;
+        padding: .5rem;
     }
     .blogposts-area > a {
         text-decoration: none;
         color: #fff;
+    }
+    .blogposts-area > a:hover .post-card {
+        background: #303031;
+    }
+    .post-card {
+        padding: .5rem;
     }
     .post-title {
         font-size: 1.5rem;
