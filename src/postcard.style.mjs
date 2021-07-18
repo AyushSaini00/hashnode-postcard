@@ -6,12 +6,17 @@ export const styles = `
     .card {
         line-height: 1.5;
         font-family: Arial;
+        --primary-bg: #18191a;
+        --secondary-bg: #303031;
+        --primary-fg: #fff;
+        --secondary-fg: rgb(189, 189, 189);
+        --max-content-width: 48rem;
     }
     .card a {
         text-decoration: none;
     }
     .author-area {
-        background: #303031;
+        background: var(--secondary-bg);
         padding: 1rem;
     }
     .author-profile-and-text{
@@ -19,7 +24,7 @@ export const styles = `
         flex-direction: row-reverse;
         justify-content: space-between;
         align-items: center;
-        max-width: 48rem;
+        max-width: var(--max-content-width);
         margin: 0 auto;
     }
     .author-profile-photo{
@@ -33,26 +38,26 @@ export const styles = `
     .author-name {
         font-weight: bold;
         font-size: 1.5rem;
-        color: #fff;
+        color: var(--primary-fg);
         margin-bottom: .5rem;
     }
     .author-tagline,
     .author-followers {
-        color: rgb(189, 189, 189);
+        color: var(--secondary-fg);
     }
     .author-followers {
         margin-top: .5rem;
     }
     .blogposts-area {
-        background: #18191a;
-        color: #fff;
+        background: var(--primary-bg);
+        color: var(--primary-fg);
         padding: .5rem;
     }
     .blogposts-area > a {
-        color: #fff;
+        color: var(--primary-fg);
     }
     .blogposts-area > a:hover .post-card {
-        background: #303031;
+        background: var(--secondary-bg);
         border-radius: 5px;
     }
     .post-card {
@@ -69,7 +74,7 @@ export const styles = `
     .post-date,
     .post-reactions {
         font-size: 0.875rem;
-        color: rgb(189, 189, 189);
+        color: var(--secondary-fg);
         display: flex;
         align-items: center;
         margin-right: 1rem;
@@ -83,7 +88,7 @@ export const styles = `
     .post-brief {
         font-size: 1rem;
         margin-bottom: .75rem;
-        color: rgb(189, 189, 189);
+        color: var(--secondary-fg);
     }
     .post-cover-image{
         width: 100%;
@@ -93,7 +98,7 @@ export const styles = `
         .post-card {
             display: flex;
             align-items: center;
-            max-width: 48rem;
+            max-width: var(--max-content-width);
             margin: 0 auto;
         }
         .post-card-text {
