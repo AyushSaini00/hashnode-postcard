@@ -7,26 +7,41 @@ export const styles = `
         line-height: 1.5;
         font-family: Arial;
     }
+    .card a {
+        text-decoration: none;
+    }
     .author-area {
         background: #303031;
         padding: 1rem;
+    }
+    .author-profile-and-text{
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
         align-items: center;
+        max-width: 48rem;
+        margin: 0 auto;
     }
     .author-profile-photo{
         width: 92px;
         height: 92px;
         border-radius: 50%;
     }
+    .author-details{
+        padding-right: 1rem;
+    }
     .author-name {
         font-weight: bold;
         font-size: 1.5rem;
         color: #fff;
+        margin-bottom: .5rem;
+    }
+    .author-tagline,
+    .author-followers {
+        color: rgb(189, 189, 189);
     }
     .author-followers {
-        color: rgb(255, 255, 255);
+        margin-top: .5rem;
     }
     .blogposts-area {
         background: #18191a;
@@ -34,11 +49,11 @@ export const styles = `
         padding: .5rem;
     }
     .blogposts-area > a {
-        text-decoration: none;
         color: #fff;
     }
     .blogposts-area > a:hover .post-card {
         background: #303031;
+        border-radius: 5px;
     }
     .post-card {
         padding: .5rem;
@@ -78,6 +93,8 @@ export const styles = `
         .post-card {
             display: flex;
             align-items: center;
+            max-width: 48rem;
+            margin: 0 auto;
         }
         .post-card-text {
             width: 50%;
