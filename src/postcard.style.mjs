@@ -23,8 +23,8 @@ export const styles = `
         margin: 0 auto;
     }
     .author-profile-photo{
-        width: 92px;
-        height: 92px;
+        max-width: 92px;
+        max-height: 92px;
         border-radius: 50%;
     }
     .author-details{
