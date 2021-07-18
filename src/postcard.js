@@ -60,6 +60,7 @@ class Postcard extends HTMLElement {
   createCard(name, tagline, numFollowers, photo) {
     const authorArea = this._shadowRoot.querySelector('.author-area');
     const blogpostsArea = this._shadowRoot.querySelector('.blogposts-area');
+    this.setHeight();
 
     authorArea.innerHTML = `
         <div class="author-profile-and-text">
@@ -178,7 +179,24 @@ class Postcard extends HTMLElement {
     });
   }
 
+  setWidth() {
+    if (this.dataset.width) {
+      this.style.display = 'inline-block';
+      this.style.width = this.dataset.width;
+    }
+  }
+
+  setHeight() {
+    if (this.dataset.height) {
+      this._shadowRoot.querySelector('.blogposts-area').style.overflowY =
+        'scroll';
+      this._shadowRoot.querySelector('.blogposts-area').style.maxHeight =
+        this.dataset.height;
+    }
+  }
+
   render() {
+    this.setWidth();
     this.fetchPosts(this._GET_USER_ARTICLES, { page: 0 });
   }
 }
