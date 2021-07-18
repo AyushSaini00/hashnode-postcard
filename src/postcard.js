@@ -96,10 +96,10 @@ class Postcard extends HTMLElement {
           publication: { posts }
         } = data.data.user;
 
-        this.posts = posts;
         this.name = name;
         this.numFollowers = numFollowers;
         this.photo = photo;
+        this.posts = posts;
 
         this.createCard(this.name, this.numFollowers, this.photo);
         this.renderPosts(this.posts);
@@ -113,7 +113,7 @@ class Postcard extends HTMLElement {
     posts.forEach((post) => {
       let date = new Date(`${post.dateAdded}`);
 
-      this._shadowRoot.querySelector('.blogposts-area').innerHTML = `
+      this._shadowRoot.querySelector('.blogposts-area').innerHTML += `
             <a class="post-link" 
                href="https://${this.dataset.username}.hashnode.dev/${
         post.slug
