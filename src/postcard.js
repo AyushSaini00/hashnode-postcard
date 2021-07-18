@@ -25,6 +25,7 @@ class Postcard extends HTMLElement {
         query GetUserArticles($page: Int!) {
             user(username: "${this.dataset.username.toLowerCase()}") {
                 name,
+                tagline,
                 numFollowers,
                 photo,
                 publication {
@@ -56,20 +57,26 @@ class Postcard extends HTMLElement {
     this.render();
   }
 
-  createCard(name, numFollowers, photo) {
+  createCard(name, tagline, numFollowers, photo) {
     const authorArea = this._shadowRoot.querySelector('.author-area');
     const blogpostsArea = this._shadowRoot.querySelector('.blogposts-area');
 
     authorArea.innerHTML = `
         <div class="author-profile-and-text">
-          ${photo ? `<img class="author-profile-photo" src="${photo}"  />` : ''}
-          <div>
+          ${
+            photo
+              ? `<a href="https://hashnode.com/@${this.dataset.username}">
+                    <img class="author-profile-photo" src="${photo}"/>
+                  </a>`
+              : ''
+          }
+          <div class="author-details">
               <a href="https://hashnode.com/@${this.dataset.username}">
                 <div class="author-name">
                     ${name}
                 </div>
               </a>
-              
+              ${tagline ? `<p class="author-tagline">${tagline}</p>` : ''}
               ${
                 numFollowers
                   ? this.dataset.followers === 'true'
@@ -104,17 +111,19 @@ class Postcard extends HTMLElement {
 
         const {
           name,
+          tagline,
           numFollowers,
           photo,
           publication: { posts }
         } = data.data.user;
 
         this.name = name;
+        this.tagline = tagline;
         this.numFollowers = numFollowers;
         this.photo = photo;
         this.posts = posts;
 
-        this.createCard(this.name, this.numFollowers, this.photo);
+        this.createCard(this.name, this.tagline, this.numFollowers, this.photo);
         this.renderPosts(this.posts);
       });
   }
