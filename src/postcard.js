@@ -1,4 +1,4 @@
-import { styles } from './postcard.style.mjs';
+import { styles } from './postcard.style.js';
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -215,4 +215,4 @@ export class Postcard extends HTMLElement {
   }
 }
 
-window.customElements.define('hashnode-postcard', Postcard);
+customElements.define('hashnode-postcard', Postcard);
