@@ -1,1 +1,1 @@
-export * from './postcard.mjs';
+export * from './postcard.js';

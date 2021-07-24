@@ -12,7 +12,7 @@ template.innerHTML = `
 `;
 
 //extending to HTMLElements help to create custom html elements
-export class Postcard extends HTMLElement {
+export class HashnodePostcard extends HTMLElement {
   constructor() {
     super();
 
@@ -215,4 +215,4 @@ export class Postcard extends HTMLElement {
   }
 }
 
-customElements.define('hashnode-postcard', Postcard);
+customElements.define('hashnode-postcard', HashnodePostcard);
