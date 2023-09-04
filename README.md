@@ -31,14 +31,13 @@ yarn add hashnode-postcard
 <hashnode-postcard data-username="ayushcodes"></hashnode-postcard>
 
 <script
-  src="https://unpkg.com/hashnode-postcard@0.1.0/src/postcard.mjs"
+  src="https://unpkg.com/hashnode-postcard@latest/dist/hashnode-postcard.umd.js"
   type="module"
 ></script>
 ```
 
 ## demo
-- [import demo]()
-- [unpkg demo]()
+- [import demo & script demo](https://stackblitz.com/edit/hashnode-postcard-demo?file=index.html,index.js)
 
 ## api
 - `<hashnode-postcard data-username="YOUR_HASHNODE_USERNAME"></hashnode-postcard>`
