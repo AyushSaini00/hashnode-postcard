@@ -2,12 +2,22 @@
   "name": "hashnode-postcard",
   "version": "0.1.1",
   "description": "Hashnode blogpost cards for your website",
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "type": "module",
+  "homepage": "https://github.com/AyushSaini00/hashnode-postcard#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/hashnode-postcard.umd.js",
+  "module": "./dist/hashnode-postcard.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/hashnode-postcard.es.js",
+      "require": "./dist/hashnode-postcard.umd.js"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -20,9 +30,11 @@
     "blog"
   ],
   "author": "Ayush Saini",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AyushSaini00/hashnode-postcard/issues"
   },
-  "homepage": "https://github.com/AyushSaini00/hashnode-postcard#readme"
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^4.4.9"
+  }
 }

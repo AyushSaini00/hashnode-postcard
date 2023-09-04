@@ -95,11 +95,14 @@ export const styles = `
         border-radius: 5px;
     }
     @media screen and (min-width: 768px){
+        .blogposts-area > a {
+            display: flex;
+            max-width: var(--max-content-width);
+            margin: 0 auto;
+        }
         .post-card {
             display: flex;
             align-items: center;
-            max-width: var(--max-content-width);
-            margin: 0 auto;
         }
         .post-card-text {
             width: 50%;
