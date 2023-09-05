@@ -67,7 +67,7 @@ export class HashnodePostcard extends HTMLElement {
           ${
             photo
               ? `<a href="https://hashnode.com/@${this.dataset.username}">
-                    <img class="author-profile-photo" src="${photo}"/>
+                    <img class="author-profile-photo" src="${photo}" alt="${name}"/>
                   </a>`
               : ""
           }
@@ -80,9 +80,9 @@ export class HashnodePostcard extends HTMLElement {
               ${tagline ? `<p class="author-tagline">${tagline}</p>` : ""}
               ${
                 numFollowers
-                  ? this.dataset.followers === "true"
-                    ? `<p class="author-followers">${numFollowers} followers</p>`
-                    : ""
+                  ? this.dataset.followers === "false"
+                    ? ""
+                    : `<p class="author-followers">${numFollowers} followers</p>`
                   : ""
               }
           </div>
@@ -159,19 +159,19 @@ export class HashnodePostcard extends HTMLElement {
                       </div>
                     </div>
                     ${
-                      this.dataset.brief === "true"
-                        ? `<p class="post-brief">${post.brief}</p>`
-                        : ""
+                      this.dataset.brief === "false"
+                        ? ""
+                        : `<p class="post-brief">${post.brief}</p>`
                     }
                   </div>
                     ${
-                      this.dataset.coverImage === "true"
-                        ? `<img 
+                      this.dataset.coverImage === "false"
+                        ? ""
+                        : `<img 
                             class="post-cover-image" 
                             src="${post.coverImage}" 
                             alt="${post.title} cover" 
                            />`
-                        : ""
                     }
                 </div>
             </a>

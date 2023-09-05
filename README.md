@@ -51,6 +51,6 @@ Following data attributes are available to customize the postcard.
 | data-username    	| your hashnode username                     	| ayushcodes 	| required 	|
 | data-width       	| width of the postcard                      	| 600px      	| optional 	|
 | data-height      	| height of the blogposts wrapper            	| 500px      	| optional 	|
-| data-cover-image 	| to show the post cover images              	| true       	| optional 	|
-| data-followers   	| to show the number of followers            	| false      	| optional 	|
-| data-brief       	| to show the brief description of blogposts 	| true       	| optional 	|
+| data-cover-image 	| to show the post cover images              	| true       	| optional (defautl is true) 	|
+| data-followers   	| to show the number of followers            	| false      	| optional (defautl is true) 	|
+| data-brief       	| to show the brief description of blogposts 	| true       	| optional (defautl is true) 	|

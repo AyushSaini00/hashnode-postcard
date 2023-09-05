@@ -51,9 +51,13 @@ export const styles = `
     .blogposts-area {
         background: var(--primary-bg);
         color: var(--primary-fg);
-        padding: .5rem;
+        padding: 1.5rem .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
     .blogposts-area > a {
+        display: flex;
         color: var(--primary-fg);
     }
     .blogposts-area > a:hover .post-card {
@@ -61,7 +65,8 @@ export const styles = `
         border-radius: 5px;
     }
     .post-card {
-        padding: .5rem;
+        width: 100%;
+        padding: 1rem .5rem;
     }
     .post-title {
         font-size: 1.5rem;
