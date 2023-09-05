@@ -1,6 +1,6 @@
 # Hashnode Postcard
 
-[Hashnode](https://hashnode.com/) blogpost cards for your website using a single HTML element.
+[Hashnode](https://hashnode.com/) blogpost cards for your website using a single HTML element. import it anywhere you want.
 
 ![hashnode-postcard demo](https://ik.imagekit.io/ayu/hashnode-postcard-demo_wRLT1g_-o.png?updatedAt=1626945637219)
 
