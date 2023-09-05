@@ -51,9 +51,13 @@
     .blogposts-area {
         background: var(--primary-bg);
         color: var(--primary-fg);
-        padding: .5rem;
+        padding: 1.5rem .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
     .blogposts-area > a {
+        display: flex;
         color: var(--primary-fg);
     }
     .blogposts-area > a:hover .post-card {
@@ -61,7 +65,8 @@
         border-radius: 5px;
     }
     .post-card {
-        padding: .5rem;
+        width: 100%;
+        padding: 1rem .5rem;
     }
     .post-title {
         font-size: 1.5rem;
@@ -121,7 +126,7 @@
     <div class="author-area"></div>
     <div class="blogposts-area"></div>
 </div>
-`;class h extends HTMLElement{constructor(){super(),this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.appendChild(n.content.cloneNode(!0)),this._GET_USER_ARTICLES=`
+`;class l extends HTMLElement{constructor(){super(),this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.appendChild(n.content.cloneNode(!0)),this._GET_USER_ARTICLES=`
         query GetUserArticles($page: Int!) {
             user(username: "${this.dataset.username.toLowerCase()}") {
                 name,
@@ -143,7 +148,7 @@
     `}static get observedAttributes(){return["data-width"]}attributeChangedCallback(a,t,e){a=="data-width"&&t!=e&&(this[a]=e)}connectedCallback(){this.render()}createCard(a,t,e,r){const i=this._shadowRoot.querySelector(".author-area"),d=this._shadowRoot.querySelector(".blogposts-area");this.setHeight(),i.innerHTML=`
         <div class="author-profile-and-text">
           ${r?`<a href="https://hashnode.com/@${this.dataset.username}">
-                    <img class="author-profile-photo" src="${r}"/>
+                    <img class="author-profile-photo" src="${r}" alt="${a}"/>
                   </a>`:""}
           <div class="author-details">
               <a href="https://hashnode.com/@${this.dataset.username}">
@@ -152,10 +157,10 @@
                 </div>
               </a>
               ${t?`<p class="author-tagline">${t}</p>`:""}
-              ${e&&this.dataset.followers==="true"?`<p class="author-followers">${e} followers</p>`:""}
+              ${e?this.dataset.followers==="false"?"":`<p class="author-followers">${e} followers</p>`:""}
           </div>
         </div>
-    `,d.innerHTML=""}async fetchPosts(a,t={}){return fetch("https://api.hashnode.com/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:a,variables:t})}).then(e=>e.json()).then(e=>{if(e.data.user.name===null){this.createCard(this.dataset.username+" doesn't exist");return}const{name:r,tagline:i,numFollowers:d,photo:l,publication:{posts:c}}=e.data.user;this.name=r,this.tagline=i,this.numFollowers=d,this.photo=l,this.posts=c,this.createCard(this.name,this.tagline,this.numFollowers,this.photo),this.renderPosts(this.posts)})}renderPosts(a){a.forEach(t=>{let e=new Date(`${t.dateAdded}`);this._shadowRoot.querySelector(".blogposts-area").innerHTML+=`
+    `,d.innerHTML=""}async fetchPosts(a,t={}){return fetch("https://api.hashnode.com/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:a,variables:t})}).then(e=>e.json()).then(e=>{if(e.data.user.name===null){this.createCard(this.dataset.username+" doesn't exist");return}const{name:r,tagline:i,numFollowers:d,photo:h,publication:{posts:c}}=e.data.user;this.name=r,this.tagline=i,this.numFollowers=d,this.photo=h,this.posts=c,this.createCard(this.name,this.tagline,this.numFollowers,this.photo),this.renderPosts(this.posts)})}renderPosts(a){a.forEach(t=>{let e=new Date(`${t.dateAdded}`);this._shadowRoot.querySelector(".blogposts-area").innerHTML+=`
             <a class="post-link" 
                href="https://${this.dataset.username}.hashnode.dev/${t.slug}" 
                target="_blank" 
@@ -178,13 +183,13 @@
                           ${t.totalReactions}
                       </div>
                     </div>
-                    ${this.dataset.brief==="true"?`<p class="post-brief">${t.brief}</p>`:""}
+                    ${this.dataset.brief==="false"?"":`<p class="post-brief">${t.brief}</p>`}
                   </div>
-                    ${this.dataset.coverImage==="true"?`<img 
+                    ${this.dataset.coverImage==="false"?"":`<img 
                             class="post-cover-image" 
                             src="${t.coverImage}" 
                             alt="${t.title} cover" 
-                           />`:""}
+                           />`}
                 </div>
             </a>
-        `})}setWidth(){this.dataset.width&&(this.style.display="inline-block",this.style.width=this.dataset.width)}setHeight(){this.dataset.height&&(this._shadowRoot.querySelector(".blogposts-area").style.overflowY="scroll",this._shadowRoot.querySelector(".blogposts-area").style.maxHeight=this.dataset.height)}render(){this.setWidth(),this.fetchPosts(this._GET_USER_ARTICLES,{page:0})}}customElements.define("hashnode-postcard",h),s.HashnodePostcard=h,Object.defineProperty(s,Symbol.toStringTag,{value:"Module"})});
+        `})}setWidth(){this.dataset.width&&(this.style.display="inline-block",this.style.width=this.dataset.width)}setHeight(){this.dataset.height&&(this._shadowRoot.querySelector(".blogposts-area").style.overflowY="scroll",this._shadowRoot.querySelector(".blogposts-area").style.maxHeight=this.dataset.height)}render(){this.setWidth(),this.fetchPosts(this._GET_USER_ARTICLES,{page:0})}}customElements.define("hashnode-postcard",l),s.HashnodePostcard=l,Object.defineProperty(s,Symbol.toStringTag,{value:"Module"})});

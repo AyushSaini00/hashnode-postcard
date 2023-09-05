@@ -1,4 +1,4 @@
-const h = `
+const l = `
     .card * {
         margin: 0;
         padding: 0;
@@ -51,9 +51,13 @@ const h = `
     .blogposts-area {
         background: var(--primary-bg);
         color: var(--primary-fg);
-        padding: .5rem;
+        padding: 1.5rem .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
     .blogposts-area > a {
+        display: flex;
         color: var(--primary-fg);
     }
     .blogposts-area > a:hover .post-card {
@@ -61,7 +65,8 @@ const h = `
         border-radius: 5px;
     }
     .post-card {
-        padding: .5rem;
+        width: 100%;
+        padding: 1rem .5rem;
     }
     .post-title {
         font-size: 1.5rem;
@@ -116,14 +121,14 @@ const h = `
 `, i = document.createElement("template");
 i.innerHTML = `
 <style>
-    ${h}
+    ${l}
 </style>
 <div class="card">
     <div class="author-area"></div>
     <div class="blogposts-area"></div>
 </div>
 `;
-class l extends HTMLElement {
+class h extends HTMLElement {
   constructor() {
     super(), this._shadowRoot = this.attachShadow({ mode: "open" }), this._shadowRoot.appendChild(i.content.cloneNode(!0)), this._GET_USER_ARTICLES = `
         query GetUserArticles($page: Int!) {
@@ -160,7 +165,7 @@ class l extends HTMLElement {
     this.setHeight(), r.innerHTML = `
         <div class="author-profile-and-text">
           ${s ? `<a href="https://hashnode.com/@${this.dataset.username}">
-                    <img class="author-profile-photo" src="${s}"/>
+                    <img class="author-profile-photo" src="${s}" alt="${a}"/>
                   </a>` : ""}
           <div class="author-details">
               <a href="https://hashnode.com/@${this.dataset.username}">
@@ -169,7 +174,7 @@ class l extends HTMLElement {
                 </div>
               </a>
               ${t ? `<p class="author-tagline">${t}</p>` : ""}
-              ${e && this.dataset.followers === "true" ? `<p class="author-followers">${e} followers</p>` : ""}
+              ${e ? this.dataset.followers === "false" ? "" : `<p class="author-followers">${e} followers</p>` : ""}
           </div>
         </div>
     `, o.innerHTML = "";
@@ -225,13 +230,13 @@ class l extends HTMLElement {
                           ${t.totalReactions}
                       </div>
                     </div>
-                    ${this.dataset.brief === "true" ? `<p class="post-brief">${t.brief}</p>` : ""}
+                    ${this.dataset.brief === "false" ? "" : `<p class="post-brief">${t.brief}</p>`}
                   </div>
-                    ${this.dataset.coverImage === "true" ? `<img 
+                    ${this.dataset.coverImage === "false" ? "" : `<img 
                             class="post-cover-image" 
                             src="${t.coverImage}" 
                             alt="${t.title} cover" 
-                           />` : ""}
+                           />`}
                 </div>
             </a>
         `;
@@ -259,7 +264,7 @@ class l extends HTMLElement {
     this.setWidth(), this.fetchPosts(this._GET_USER_ARTICLES, { page: 0 });
   }
 }
-customElements.define("hashnode-postcard", l);
+customElements.define("hashnode-postcard", h);
 export {
-  l as HashnodePostcard
+  h as HashnodePostcard
 };
