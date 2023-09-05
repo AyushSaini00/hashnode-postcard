@@ -38,6 +38,7 @@ yarn add hashnode-postcard
 
 ## demo
 - [import demo & script demo](https://stackblitz.com/edit/hashnode-postcard-demo?file=index.html,index.js)
+- [react/nextjs demo](https://stackblitz.com/edit/hashnode-postcard-react-nextjs-demo?file=pages%2Findex.js)
 
 ## api
 - `<hashnode-postcard data-username="YOUR_HASHNODE_USERNAME"></hashnode-postcard>`
