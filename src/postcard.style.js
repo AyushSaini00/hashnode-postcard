@@ -1,4 +1,7 @@
 export const styles = `
+    .flex {
+        display: flex;
+    }
     .card * {
         margin: 0;
         padding: 0;
