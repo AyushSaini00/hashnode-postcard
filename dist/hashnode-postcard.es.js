@@ -1,4 +1,141 @@
-const l = `
+function f(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+}
+var l = { exports: {} };
+function m(e, r, o) {
+  const t = o || ".";
+  let s;
+  {
+    let a;
+    switch (typeof e) {
+      case "string":
+        if (e.length < (e[0] === "-" ? 5 : 4))
+          return e;
+        s = e, a = Number(
+          t !== "." ? s.replace(t, ".") : s
+        );
+        break;
+      case "number":
+        s = String(e), a = e, t !== "." && !Number.isInteger(e) && (s = s.replace(".", t));
+        break;
+      default:
+        return e;
+    }
+    if (-1e3 < a && a < 1e3 || isNaN(a) || !isFinite(a))
+      return s;
+  }
+  {
+    const a = s.lastIndexOf(t);
+    let i;
+    a > -1 && (i = s.slice(a), s = s.slice(0, a));
+    const n = v(s, r || ",");
+    return i && n.push(i), n.join("");
+  }
+}
+function v(e, r) {
+  let o = (e.length - 1) % 3 + 1;
+  o === 1 && e[0] === "-" && (o = 4);
+  const t = [
+    // holds the string parts
+    e.slice(0, o)
+    // grab part before the first separator
+  ];
+  for (; o < e.length; o += 3)
+    t.push(r, e.substr(o, 3));
+  return t;
+}
+function b(e, r) {
+  return function(o) {
+    return m(o, e, r);
+  };
+}
+l.exports = m;
+l.exports.bindWith = b;
+var y = l.exports;
+const h = /* @__PURE__ */ f(y), c = {
+  createTemplate(e) {
+    const { styles: r } = e;
+    return `
+        <style>
+            ${r}
+        </style>
+        <div class="card">
+            <div class="author-area"></div>
+            <div class="blogposts-wrapper">
+                <div class="blogposts-area">fetching blog posts...</div>
+            </div>
+        </div>
+        `;
+  },
+  createAuthorArea(e) {
+    const { username: r, photo: o, name: t, tagline: s, followers: a, numFollowers: i } = e;
+    return `
+        <div class="author-profile-and-text">
+          ${o ? `<a class="flex" href="https://hashnode.com/@${r}">
+                    <img class="author-profile-photo" src="${o}" alt="${t}"/>
+                  </a>` : ""}
+          <div class="author-details">
+              <a href="https://hashnode.com/@${r}">
+                <div class="author-name">
+                    ${t}
+                </div>
+              </a>
+              ${s ? `<p class="author-tagline">${s}</p>` : ""}
+              ${i ? a === "false" ? "" : `<p class="author-followers">${h(
+      i
+    )} followers</p>` : ""}
+          </div>
+        </div>
+    `;
+  },
+  createBlogpostCard(e) {
+    const {
+      username: r,
+      slug: o,
+      title: t,
+      dateAdded: s,
+      totalReactions: a,
+      brief: i,
+      coverImage: n
+    } = e, u = new Date(s);
+    return `
+            <a class="post-link" 
+               href="https://${r}.hashnode.dev/${o}" 
+               target="_blank"
+               rel="noopener noreferrer"
+            >
+                <div class="post-card">
+                  <div class="post-card-text">
+                    <div class="post-title">${t}</div>
+                    <div class="post-date-and-reactions">
+                      <div class="post-date">
+                          <svg class="post-svg" viewBox="0 0 512 512">
+                              <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
+                          </svg>
+                          ${u.toDateString()}
+                      </div>
+                      <div class="post-reactions">
+                          <svg class="post-svg" viewBox="0 0 512 512">
+                              <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
+                          </svg>
+                          ${h(a)}
+                      </div>
+                    </div>
+                    ${i === "false" ? "" : `<p class="post-brief">${i}</p>`}
+                  </div>
+                    ${n === "false" ? "" : `<img 
+                            class="post-cover-image" 
+                            src="${n}" 
+                            alt="${t} cover" 
+                           />`}
+                </div>
+            </a>
+        `;
+  }
+}, w = `
+    .flex {
+        display: flex;
+    }
     .card * {
         margin: 0;
         padding: 0;
@@ -48,10 +185,12 @@ const l = `
     .author-followers {
         margin-top: .5rem;
     }
-    .blogposts-area {
+    .blogposts-wrapper {
         background: var(--primary-bg);
         color: var(--primary-fg);
         padding: 1.5rem .5rem;
+    }
+    .blogposts-area {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -118,25 +257,24 @@ const l = `
             height: min-content;
         }
     }
-`, i = document.createElement("template");
-i.innerHTML = `
-<style>
-    ${l}
-</style>
-<div class="card">
-    <div class="author-area"></div>
-    <div class="blogposts-area"></div>
-</div>
-`;
-class h extends HTMLElement {
-  constructor() {
-    super(), this._shadowRoot = this.attachShadow({ mode: "open" }), this._shadowRoot.appendChild(i.content.cloneNode(!0)), this._GET_USER_ARTICLES = `
+`, d = {
+  getUser({ username: e }) {
+    return `
+      query GetUser {
+        user(username: "${e}") {
+          name
+          tagline
+          numFollowers
+          photo
+          numPosts
+        }
+      }
+    `;
+  },
+  getUserArticles({ username: e }) {
+    return `
         query GetUserArticles($page: Int!) {
-            user(username: "${this.dataset.username.toLowerCase()}") {
-                name,
-                tagline,
-                numFollowers,
-                photo,
+            user(username: "${e}") {
                 publication {
                     posts(page: $page) {
                         title,
@@ -151,96 +289,91 @@ class h extends HTMLElement {
         }
     `;
   }
-  static get observedAttributes() {
-    return ["data-width"];
-  }
-  attributeChangedCallback(a, t, e) {
-    a == "data-width" && t != e && (this[a] = e);
-  }
-  connectedCallback() {
-    this.render();
-  }
-  createCard(a, t, e, s) {
-    const r = this._shadowRoot.querySelector(".author-area"), o = this._shadowRoot.querySelector(".blogposts-area");
-    this.setHeight(), r.innerHTML = `
-        <div class="author-profile-and-text">
-          ${s ? `<a href="https://hashnode.com/@${this.dataset.username}">
-                    <img class="author-profile-photo" src="${s}" alt="${a}"/>
-                  </a>` : ""}
-          <div class="author-details">
-              <a href="https://hashnode.com/@${this.dataset.username}">
-                <div class="author-name">
-                    ${a}
-                </div>
-              </a>
-              ${t ? `<p class="author-tagline">${t}</p>` : ""}
-              ${e ? this.dataset.followers === "false" ? "" : `<p class="author-followers">${e} followers</p>` : ""}
-          </div>
-        </div>
-    `, o.innerHTML = "";
-  }
-  async fetchPosts(a, t = {}) {
+}, p = {
+  async fetcher(e) {
     return fetch("https://api.hashnode.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        query: a,
-        variables: t
-      })
-    }).then((e) => e.json()).then((e) => {
-      if (e.data.user.name === null) {
-        this.createCard(this.dataset.username + " doesn't exist");
-        return;
-      }
-      const {
-        name: s,
-        tagline: r,
-        numFollowers: o,
-        photo: d,
-        publication: { posts: n }
-      } = e.data.user;
-      this.name = s, this.tagline = r, this.numFollowers = o, this.photo = d, this.posts = n, this.createCard(this.name, this.tagline, this.numFollowers, this.photo), this.renderPosts(this.posts);
+      body: JSON.stringify(e)
+    }).then((r) => r.json());
+  }
+}, g = document.createElement("template");
+g.innerHTML = c.createTemplate({ styles: w });
+class x extends HTMLElement {
+  constructor() {
+    super(), this._shadowRoot = this.attachShadow({ mode: "open" }), this._shadowRoot.appendChild(g.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = d.getUser({
+      username: this.dataset.username.toLowerCase()
+    }), this._GET_USER_ARTICLES = d.getUserArticles({
+      username: this.dataset.username.toLowerCase()
     });
   }
-  renderPosts(a) {
-    a.forEach((t) => {
-      let e = /* @__PURE__ */ new Date(`${t.dateAdded}`);
-      this._shadowRoot.querySelector(".blogposts-area").innerHTML += `
-            <a class="post-link" 
-               href="https://${this.dataset.username}.hashnode.dev/${t.slug}" 
-               target="_blank" 
-               rel="noopener noreferrer"
-            >
-                <div class="post-card">
-                  <div class="post-card-text">
-                    <div class="post-title">${t.title}</div>
-                    <div class="post-date-and-reactions">
-                      <div class="post-date">
-                          <svg class="post-svg" viewBox="0 0 512 512">
-                              <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
-                          </svg>
-                          ${e.toDateString()}
-                      </div>
-                      <div class="post-reactions">
-                          <svg class="post-svg" viewBox="0 0 512 512">
-                              <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
-                          </svg>
-                          ${t.totalReactions}
-                      </div>
-                    </div>
-                    ${this.dataset.brief === "false" ? "" : `<p class="post-brief">${t.brief}</p>`}
-                  </div>
-                    ${this.dataset.coverImage === "false" ? "" : `<img 
-                            class="post-cover-image" 
-                            src="${t.coverImage}" 
-                            alt="${t.title} cover" 
-                           />`}
-                </div>
-            </a>
-        `;
+  async fetchUser(r, o = {}) {
+    return p.fetcher({
+      query: r,
+      variables: o
+    }).then(({ data: t }) => {
+      var s;
+      if (((s = t == null ? void 0 : t.user) == null ? void 0 : s.name) === null) {
+        this.renderUser(this.dataset.username + " doesn't exist");
+        return;
+      }
+      this.fetchedUser = t.user, this.totalPosts = t.user.numPosts, this.renderUser(this.fetchedUser), this.fetchPosts(this._GET_USER_ARTICLES, { page: this.currentPage });
+    }).catch((t) => {
+      console.log(t);
     });
+  }
+  renderUser(r) {
+    const o = this._shadowRoot.querySelector(".author-area");
+    o.innerHTML = c.createAuthorArea({
+      username: this.dataset.username,
+      ...r
+    });
+  }
+  async fetchPosts(r, o = {}) {
+    return p.fetcher({ query: r, variables: o }).then(({ data: t }) => {
+      var a, i;
+      const s = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
+      this.posts = s, this.postsFetched = [...this.postsFetched, ...s], this.renderPosts(this.posts);
+    });
+  }
+  renderPosts(r) {
+    const o = this._shadowRoot.querySelector(".blogposts-wrapper"), t = this._shadowRoot.querySelector(".blogposts-area");
+    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !r.length && this.currentPage === 0) {
+      t.innerHTML = "no posts found.";
+      return;
+    }
+    const s = this._shadowRoot.querySelector(
+      ".blogposts-area-observer"
+    );
+    if (this.currentPage === 0 && this.totalPosts <= 6 && s && s.remove(), r.forEach((a) => {
+      t.innerHTML += c.createBlogpostCard({
+        username: this.dataset.username,
+        ...a
+      });
+    }), this.totalPosts > this.postsFetched.length) {
+      if (!s) {
+        const a = document.createElement("div");
+        a.classList.add("blogposts-area-observer"), o.appendChild(a), new IntersectionObserver(
+          (n) => {
+            n[0].isIntersecting && (this.currentPage += 1, a.innerHTML = "fetching more posts...", this.fetchPosts(this._GET_USER_ARTICLES, {
+              page: this.currentPage
+            }));
+          },
+          {
+            threshold: 1
+          }
+        ).observe(a);
+      }
+    } else
+      s.remove();
+  }
+  render() {
+    this.setWidth(), this.fetchUser(this._GET_USER);
+  }
+  connectedCallback() {
+    this.render();
   }
   setWidth() {
     this.dataset.width && (this.style.display = "inline-block", this.style.width = this.dataset.width);
@@ -248,23 +381,14 @@ class h extends HTMLElement {
   setHeight() {
     this.dataset.height && (this._shadowRoot.querySelector(".blogposts-area").style.overflowY = "scroll", this._shadowRoot.querySelector(".blogposts-area").style.maxHeight = this.dataset.height);
   }
-  // fixPostLayout() {
-  //   if (this.dataset.width) {
-  //     let nodeElements = this.shadowRoot.childNodes[3].childNodes[3].childNodes;
-  //     console.log(nodeElements);
-  //     nodeElements.forEach((elem) => {
-  //       console.log(elem);
-  //       if (elem.nodeName == 'A') {
-  //         console.log(elem.childNodes);
-  //       }
-  //     });
-  //   }
-  // }
-  render() {
-    this.setWidth(), this.fetchPosts(this._GET_USER_ARTICLES, { page: 0 });
+  static get observedAttributes() {
+    return ["data-width"];
+  }
+  attributeChangedCallback(r, o, t) {
+    r == "data-width" && o != t && (this[r] = t);
   }
 }
-customElements.define("hashnode-postcard", h);
+customElements.define("hashnode-postcard", x);
 export {
-  h as HashnodePostcard
+  x as HashnodePostcard
 };
