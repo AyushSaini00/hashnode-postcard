@@ -36,5 +36,8 @@
   "license": "MIT",
   "devDependencies": {
     "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "comma-number": "^2.1.0"
   }
 }
