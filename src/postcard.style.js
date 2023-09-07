@@ -1,4 +1,7 @@
 export const styles = `
+    .flex {
+        display: flex;
+    }
     .card * {
         margin: 0;
         padding: 0;
@@ -48,10 +51,12 @@ export const styles = `
     .author-followers {
         margin-top: .5rem;
     }
-    .blogposts-area {
+    .blogposts-wrapper {
         background: var(--primary-bg);
         color: var(--primary-fg);
         padding: 1.5rem .5rem;
+    }
+    .blogposts-area {
         display: flex;
         flex-direction: column;
         gap: 16px;
