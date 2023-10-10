@@ -3,9 +3,6 @@ import { styles } from "./postcard.style.js";
 import queries from "./queries.js";
 import utils from "./utils.js";
 
-const template = document.createElement("template");
-template.innerHTML = domElements.createTemplate({ styles });
-
 //extending to HTMLElements help to create custom html elements
 export class HashnodePostcard extends HTMLElement {
   constructor() {
@@ -13,6 +10,12 @@ export class HashnodePostcard extends HTMLElement {
 
     //attaches shadow root to 'this' with mode open making it accessible to outside world
     this._shadowRoot = this.attachShadow({ mode: "open" });
+
+    const template = document.createElement("template");
+    template.innerHTML = domElements.createTemplate({
+      styles: styles(this.dataset.theme),
+    });
+
     //appends a clone of template to shadow DOM
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
