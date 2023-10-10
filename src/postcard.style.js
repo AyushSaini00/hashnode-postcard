@@ -1,4 +1,24 @@
-export const styles = `
+import THEMES from "./themes";
+const availableThemes = Object.keys(THEMES) || [];
+
+export const styles = (selectedTheme) => {
+  if (!selectedTheme) {
+    console.warn(`selectedTheme is undefined, using default theme for now`);
+    selectedTheme = "default";
+  } else if (!availableThemes.includes(selectedTheme)) {
+    console.warn(
+      `selectedTheme's value of "${selectedTheme}" doesn't match to any of the existing themes, using default theme for now`
+    );
+    selectedTheme = "default";
+  }
+
+  return `
+    :host {
+        --primary-bg: ${THEMES[selectedTheme].background.primary};
+        --secondary-bg: ${THEMES[selectedTheme].background.secondary};
+        --primary-fg: ${THEMES[selectedTheme].foreground.primary};
+        --secondary-fg: ${THEMES[selectedTheme].foreground.secondary};
+    }
     .flex {
         display: flex;
     }
@@ -9,10 +29,6 @@ export const styles = `
     .card {
         line-height: 1.5;
         font-family: Arial;
-        --primary-bg: #18191a;
-        --secondary-bg: #303031;
-        --primary-fg: #fff;
-        --secondary-fg: rgb(189, 189, 189);
         --max-content-width: 48rem;
     }
     .card a {
@@ -124,3 +140,4 @@ export const styles = `
         }
     }
 `;
+};
