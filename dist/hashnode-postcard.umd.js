@@ -1,6 +1,6 @@
-(function(c,l){typeof exports=="object"&&typeof module<"u"?l(exports):typeof define=="function"&&define.amd?define(["exports"],l):(c=typeof globalThis<"u"?globalThis:c||self,l(c["hashnode-postcard"]={}))})(this,function(c){"use strict";function l(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var d={exports:{}};function p(e,r,o){const t=o||".";let s;{let a;switch(typeof e){case"string":if(e.length<(e[0]==="-"?5:4))return e;s=e,a=Number(t!=="."?s.replace(t,"."):s);break;case"number":s=String(e),a=e,t!=="."&&!Number.isInteger(e)&&(s=s.replace(".",t));break;default:return e}if(-1e3<a&&a<1e3||isNaN(a)||!isFinite(a))return s}{const a=s.lastIndexOf(t);let i;a>-1&&(i=s.slice(a),s=s.slice(0,a));const n=b(s,r||",");return i&&n.push(i),n.join("")}}function b(e,r){let o=(e.length-1)%3+1;o===1&&e[0]==="-"&&(o=4);const t=[e.slice(0,o)];for(;o<e.length;o+=3)t.push(r,e.substr(o,3));return t}function y(e,r){return function(o){return p(o,e,r)}}d.exports=p,d.exports.bindWith=y;var w=d.exports;const m=l(w),h={createTemplate(e){const{styles:r}=e;return`
+(function(d,c){typeof exports=="object"&&typeof module<"u"?c(exports):typeof define=="function"&&define.amd?define(["exports"],c):(d=typeof globalThis<"u"?globalThis:d||self,c(d["hashnode-postcard"]={}))})(this,function(d){"use strict";function c(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var h={exports:{}};function u(e,s,o){const t=o||".";let r;{let a;switch(typeof e){case"string":if(e.length<(e[0]==="-"?5:4))return e;r=e,a=Number(t!=="."?r.replace(t,"."):r);break;case"number":r=String(e),a=e,t!=="."&&!Number.isInteger(e)&&(r=r.replace(".",t));break;default:return e}if(-1e3<a&&a<1e3||isNaN(a)||!isFinite(a))return r}{const a=r.lastIndexOf(t);let i;a>-1&&(i=r.slice(a),r=r.slice(0,a));const n=v(r,s||",");return i&&n.push(i),n.join("")}}function v(e,s){let o=(e.length-1)%3+1;o===1&&e[0]==="-"&&(o=4);const t=[e.slice(0,o)];for(;o<e.length;o+=3)t.push(s,e.substr(o,3));return t}function y(e,s){return function(o){return u(o,e,s)}}h.exports=u,h.exports.bindWith=y;var w=h.exports;const m=c(w),p={createTemplate(e){const{styles:s}=e;return`
         <style>
-            ${r}
+            ${s}
         </style>
         <div class="card">
             <div class="author-area"></div>
@@ -8,24 +8,24 @@
                 <div class="blogposts-area">fetching blog posts...</div>
             </div>
         </div>
-        `},createAuthorArea(e){const{username:r,photo:o,name:t,tagline:s,followers:a,numFollowers:i}=e;return`
+        `},createAuthorArea(e){const{username:s,photo:o,name:t,tagline:r,followers:a,numFollowers:i}=e;return`
         <div class="author-profile-and-text">
-          ${o?`<a class="flex" href="https://hashnode.com/@${r}">
+          ${o?`<a class="flex" href="https://hashnode.com/@${s}">
                     <img class="author-profile-photo" src="${o}" alt="${t}"/>
                   </a>`:""}
           <div class="author-details">
-              <a href="https://hashnode.com/@${r}">
+              <a href="https://hashnode.com/@${s}">
                 <div class="author-name">
                     ${t}
                 </div>
               </a>
-              ${s?`<p class="author-tagline">${s}</p>`:""}
+              ${r?`<p class="author-tagline">${r}</p>`:""}
               ${i?a==="false"?"":`<p class="author-followers">${m(i)} followers</p>`:""}
           </div>
         </div>
-    `},createBlogpostCard(e){const{username:r,slug:o,title:t,dateAdded:s,totalReactions:a,brief:i,coverImage:n}=e,$=new Date(s);return`
+    `},createBlogpostCard(e){const{username:s,slug:o,title:t,dateAdded:r,totalReactions:a,brief:i,coverImage:n}=e,E=new Date(r);return`
             <a class="post-link" 
-               href="https://${r}.hashnode.dev/${o}" 
+               href="https://${s}.hashnode.dev/${o}" 
                target="_blank"
                rel="noopener noreferrer"
             >
@@ -37,7 +37,7 @@
                           <svg class="post-svg" viewBox="0 0 512 512">
                               <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
                           </svg>
-                          ${$.toDateString()}
+                          ${E.toDateString()}
                       </div>
                       <div class="post-reactions">
                           <svg class="post-svg" viewBox="0 0 512 512">
@@ -55,7 +55,13 @@
                            />`}
                 </div>
             </a>
-        `}},x=`
+        `}},l={default:{background:{primary:"#18191a",secondary:"#303031"},foreground:{primary:"#ffffff",secondary:"#bdbdbd"}},devto:{background:{primary:"#F5F5F5",secondary:"#FFFFFF"},foreground:{primary:"#090909",secondary:"#171717"}},"hashnode-light-mode":{background:{primary:"#FFFFFF",secondary:"#F8FAFC"},foreground:{primary:"#334155",secondary:"#64748B"}}},x=Object.keys(l)||[],$=e=>(e?x.includes(e)||(console.warn(`selectedTheme's value of "${e}" doesn't match to any of the existing themes, using default theme for now`),e="default"):(console.warn("selectedTheme is undefined, using default theme for now"),e="default"),`
+    :host {
+        --primary-bg: ${l[e].background.primary};
+        --secondary-bg: ${l[e].background.secondary};
+        --primary-fg: ${l[e].foreground.primary};
+        --secondary-fg: ${l[e].foreground.secondary};
+    }
     .flex {
         display: flex;
     }
@@ -66,10 +72,6 @@
     .card {
         line-height: 1.5;
         font-family: Arial;
-        --primary-bg: #18191a;
-        --secondary-bg: #303031;
-        --primary-fg: #fff;
-        --secondary-fg: rgb(189, 189, 189);
         --max-content-width: 48rem;
     }
     .card a {
@@ -180,7 +182,7 @@
             height: min-content;
         }
     }
-`,g={getUser({username:e}){return`
+`),g={getUser({username:e}){return`
       query GetUser {
         user(username: "${e}") {
           name
@@ -205,4 +207,4 @@
                 }
             }
         }
-    `}},u={async fetcher(e){return fetch("https://api.hashnode.com/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(e)}).then(r=>r.json())}},f=document.createElement("template");f.innerHTML=h.createTemplate({styles:x});class v extends HTMLElement{constructor(){super(),this._shadowRoot=this.attachShadow({mode:"open"}),this._shadowRoot.appendChild(f.content.cloneNode(!0)),this.currentPage=0,this.postsFetched=[],this._GET_USER=g.getUser({username:this.dataset.username.toLowerCase()}),this._GET_USER_ARTICLES=g.getUserArticles({username:this.dataset.username.toLowerCase()})}async fetchUser(r,o={}){return u.fetcher({query:r,variables:o}).then(({data:t})=>{var s;if(((s=t==null?void 0:t.user)==null?void 0:s.name)===null){this.renderUser(this.dataset.username+" doesn't exist");return}this.fetchedUser=t.user,this.totalPosts=t.user.numPosts,this.renderUser(this.fetchedUser),this.fetchPosts(this._GET_USER_ARTICLES,{page:this.currentPage})}).catch(t=>{console.log(t)})}renderUser(r){const o=this._shadowRoot.querySelector(".author-area");o.innerHTML=h.createAuthorArea({username:this.dataset.username,...r})}async fetchPosts(r,o={}){return u.fetcher({query:r,variables:o}).then(({data:t})=>{var a,i;const s=((i=(a=t==null?void 0:t.user)==null?void 0:a.publication)==null?void 0:i.posts)||[];this.posts=s,this.postsFetched=[...this.postsFetched,...s],this.renderPosts(this.posts)})}renderPosts(r){const o=this._shadowRoot.querySelector(".blogposts-wrapper"),t=this._shadowRoot.querySelector(".blogposts-area");if(this.setHeight(),this.currentPage===0&&(t.innerHTML=""),!r.length&&this.currentPage===0){t.innerHTML="no posts found.";return}const s=this._shadowRoot.querySelector(".blogposts-area-observer");if(this.currentPage===0&&this.totalPosts<=6&&s&&s.remove(),r.forEach(a=>{t.innerHTML+=h.createBlogpostCard({username:this.dataset.username,...a})}),this.totalPosts>this.postsFetched.length){if(!s){const a=document.createElement("div");a.classList.add("blogposts-area-observer"),o.appendChild(a),new IntersectionObserver(n=>{n[0].isIntersecting&&(this.currentPage+=1,a.innerHTML="fetching more posts...",this.fetchPosts(this._GET_USER_ARTICLES,{page:this.currentPage}))},{threshold:1}).observe(a)}}else s.remove()}render(){this.setWidth(),this.fetchUser(this._GET_USER)}connectedCallback(){this.render()}setWidth(){this.dataset.width&&(this.style.display="inline-block",this.style.width=this.dataset.width)}setHeight(){this.dataset.height&&(this._shadowRoot.querySelector(".blogposts-area").style.overflowY="scroll",this._shadowRoot.querySelector(".blogposts-area").style.maxHeight=this.dataset.height)}static get observedAttributes(){return["data-width"]}attributeChangedCallback(r,o,t){r=="data-width"&&o!=t&&(this[r]=t)}}customElements.define("hashnode-postcard",v),c.HashnodePostcard=v,Object.defineProperty(c,Symbol.toStringTag,{value:"Module"})});
+    `}},f={async fetcher(e){return fetch("https://api.hashnode.com/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(e)}).then(s=>s.json())}};class b extends HTMLElement{constructor(){super(),this._shadowRoot=this.attachShadow({mode:"open"});const s=document.createElement("template");s.innerHTML=p.createTemplate({styles:$(this.dataset.theme)}),this._shadowRoot.appendChild(s.content.cloneNode(!0)),this.currentPage=0,this.postsFetched=[],this._GET_USER=g.getUser({username:this.dataset.username.toLowerCase()}),this._GET_USER_ARTICLES=g.getUserArticles({username:this.dataset.username.toLowerCase()})}async fetchUser(s,o={}){return f.fetcher({query:s,variables:o}).then(({data:t})=>{var r;if(((r=t==null?void 0:t.user)==null?void 0:r.name)===null){this.renderUser(this.dataset.username+" doesn't exist");return}this.fetchedUser=t.user,this.totalPosts=t.user.numPosts,this.renderUser(this.fetchedUser),this.fetchPosts(this._GET_USER_ARTICLES,{page:this.currentPage})}).catch(t=>{console.log(t)})}renderUser(s){const o=this._shadowRoot.querySelector(".author-area");o.innerHTML=p.createAuthorArea({username:this.dataset.username,...s})}async fetchPosts(s,o={}){return f.fetcher({query:s,variables:o}).then(({data:t})=>{var a,i;const r=((i=(a=t==null?void 0:t.user)==null?void 0:a.publication)==null?void 0:i.posts)||[];this.posts=r,this.postsFetched=[...this.postsFetched,...r],this.renderPosts(this.posts)})}renderPosts(s){const o=this._shadowRoot.querySelector(".blogposts-wrapper"),t=this._shadowRoot.querySelector(".blogposts-area");if(this.setHeight(),this.currentPage===0&&(t.innerHTML=""),!s.length&&this.currentPage===0){t.innerHTML="no posts found.";return}const r=this._shadowRoot.querySelector(".blogposts-area-observer");if(this.currentPage===0&&this.totalPosts<=6&&r&&r.remove(),s.forEach(a=>{t.innerHTML+=p.createBlogpostCard({username:this.dataset.username,...a})}),this.totalPosts>this.postsFetched.length){if(!r){const a=document.createElement("div");a.classList.add("blogposts-area-observer"),o.appendChild(a),new IntersectionObserver(n=>{n[0].isIntersecting&&(this.currentPage+=1,a.innerHTML="fetching more posts...",this.fetchPosts(this._GET_USER_ARTICLES,{page:this.currentPage}))},{threshold:1}).observe(a)}}else r.remove()}render(){this.setWidth(),this.fetchUser(this._GET_USER)}connectedCallback(){this.render()}setWidth(){this.dataset.width&&(this.style.display="inline-block",this.style.width=this.dataset.width)}setHeight(){this.dataset.height&&(this._shadowRoot.querySelector(".blogposts-area").style.overflowY="scroll",this._shadowRoot.querySelector(".blogposts-area").style.maxHeight=this.dataset.height)}static get observedAttributes(){return["data-width"]}attributeChangedCallback(s,o,t){s=="data-width"&&o!=t&&(this[s]=t)}}customElements.define("hashnode-postcard",b),d.HashnodePostcard=b,Object.defineProperty(d,Symbol.toStringTag,{value:"Module"})});

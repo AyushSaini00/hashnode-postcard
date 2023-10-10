@@ -2,37 +2,37 @@ function f(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
 var l = { exports: {} };
-function m(e, r, o) {
+function m(e, s, o) {
   const t = o || ".";
-  let s;
+  let r;
   {
     let a;
     switch (typeof e) {
       case "string":
         if (e.length < (e[0] === "-" ? 5 : 4))
           return e;
-        s = e, a = Number(
-          t !== "." ? s.replace(t, ".") : s
+        r = e, a = Number(
+          t !== "." ? r.replace(t, ".") : r
         );
         break;
       case "number":
-        s = String(e), a = e, t !== "." && !Number.isInteger(e) && (s = s.replace(".", t));
+        r = String(e), a = e, t !== "." && !Number.isInteger(e) && (r = r.replace(".", t));
         break;
       default:
         return e;
     }
     if (-1e3 < a && a < 1e3 || isNaN(a) || !isFinite(a))
-      return s;
+      return r;
   }
   {
-    const a = s.lastIndexOf(t);
+    const a = r.lastIndexOf(t);
     let i;
-    a > -1 && (i = s.slice(a), s = s.slice(0, a));
-    const n = v(s, r || ",");
+    a > -1 && (i = r.slice(a), r = r.slice(0, a));
+    const n = v(r, s || ",");
     return i && n.push(i), n.join("");
   }
 }
-function v(e, r) {
+function v(e, s) {
   let o = (e.length - 1) % 3 + 1;
   o === 1 && e[0] === "-" && (o = 4);
   const t = [
@@ -41,23 +41,23 @@ function v(e, r) {
     // grab part before the first separator
   ];
   for (; o < e.length; o += 3)
-    t.push(r, e.substr(o, 3));
+    t.push(s, e.substr(o, 3));
   return t;
 }
-function b(e, r) {
+function b(e, s) {
   return function(o) {
-    return m(o, e, r);
+    return m(o, e, s);
   };
 }
 l.exports = m;
 l.exports.bindWith = b;
 var y = l.exports;
-const h = /* @__PURE__ */ f(y), c = {
+const h = /* @__PURE__ */ f(y), d = {
   createTemplate(e) {
-    const { styles: r } = e;
+    const { styles: s } = e;
     return `
         <style>
-            ${r}
+            ${s}
         </style>
         <div class="card">
             <div class="author-area"></div>
@@ -68,19 +68,19 @@ const h = /* @__PURE__ */ f(y), c = {
         `;
   },
   createAuthorArea(e) {
-    const { username: r, photo: o, name: t, tagline: s, followers: a, numFollowers: i } = e;
+    const { username: s, photo: o, name: t, tagline: r, followers: a, numFollowers: i } = e;
     return `
         <div class="author-profile-and-text">
-          ${o ? `<a class="flex" href="https://hashnode.com/@${r}">
+          ${o ? `<a class="flex" href="https://hashnode.com/@${s}">
                     <img class="author-profile-photo" src="${o}" alt="${t}"/>
                   </a>` : ""}
           <div class="author-details">
-              <a href="https://hashnode.com/@${r}">
+              <a href="https://hashnode.com/@${s}">
                 <div class="author-name">
                     ${t}
                 </div>
               </a>
-              ${s ? `<p class="author-tagline">${s}</p>` : ""}
+              ${r ? `<p class="author-tagline">${r}</p>` : ""}
               ${i ? a === "false" ? "" : `<p class="author-followers">${h(
       i
     )} followers</p>` : ""}
@@ -90,17 +90,17 @@ const h = /* @__PURE__ */ f(y), c = {
   },
   createBlogpostCard(e) {
     const {
-      username: r,
+      username: s,
       slug: o,
       title: t,
-      dateAdded: s,
+      dateAdded: r,
       totalReactions: a,
       brief: i,
       coverImage: n
-    } = e, u = new Date(s);
+    } = e, u = new Date(r);
     return `
             <a class="post-link" 
-               href="https://${r}.hashnode.dev/${o}" 
+               href="https://${s}.hashnode.dev/${o}" 
                target="_blank"
                rel="noopener noreferrer"
             >
@@ -132,7 +132,46 @@ const h = /* @__PURE__ */ f(y), c = {
             </a>
         `;
   }
-}, w = `
+}, c = {
+  default: {
+    background: {
+      primary: "#18191a",
+      secondary: "#303031"
+    },
+    foreground: {
+      primary: "#ffffff",
+      secondary: "#bdbdbd"
+    }
+  },
+  devto: {
+    background: {
+      primary: "#F5F5F5",
+      secondary: "#FFFFFF"
+    },
+    foreground: {
+      primary: "#090909",
+      secondary: "#171717"
+    }
+  },
+  "hashnode-light-mode": {
+    background: {
+      primary: "#FFFFFF",
+      secondary: "#F8FAFC"
+    },
+    foreground: {
+      primary: "#334155",
+      secondary: "#64748B"
+    }
+  }
+}, w = Object.keys(c) || [], x = (e) => (e ? w.includes(e) || (console.warn(
+  `selectedTheme's value of "${e}" doesn't match to any of the existing themes, using default theme for now`
+), e = "default") : (console.warn("selectedTheme is undefined, using default theme for now"), e = "default"), `
+    :host {
+        --primary-bg: ${c[e].background.primary};
+        --secondary-bg: ${c[e].background.secondary};
+        --primary-fg: ${c[e].foreground.primary};
+        --secondary-fg: ${c[e].foreground.secondary};
+    }
     .flex {
         display: flex;
     }
@@ -143,10 +182,6 @@ const h = /* @__PURE__ */ f(y), c = {
     .card {
         line-height: 1.5;
         font-family: Arial;
-        --primary-bg: #18191a;
-        --secondary-bg: #303031;
-        --primary-fg: #fff;
-        --secondary-fg: rgb(189, 189, 189);
         --max-content-width: 48rem;
     }
     .card a {
@@ -257,7 +292,7 @@ const h = /* @__PURE__ */ f(y), c = {
             height: min-content;
         }
     }
-`, d = {
+`), p = {
   getUser({ username: e }) {
     return `
       query GetUser {
@@ -289,7 +324,7 @@ const h = /* @__PURE__ */ f(y), c = {
         }
     `;
   }
-}, p = {
+}, g = {
   async fetcher(e) {
     return fetch("https://api.hashnode.com/", {
       method: "POST",
@@ -297,25 +332,28 @@ const h = /* @__PURE__ */ f(y), c = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(e)
-    }).then((r) => r.json());
+    }).then((s) => s.json());
   }
-}, g = document.createElement("template");
-g.innerHTML = c.createTemplate({ styles: w });
-class x extends HTMLElement {
+};
+class $ extends HTMLElement {
   constructor() {
-    super(), this._shadowRoot = this.attachShadow({ mode: "open" }), this._shadowRoot.appendChild(g.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = d.getUser({
+    super(), this._shadowRoot = this.attachShadow({ mode: "open" });
+    const s = document.createElement("template");
+    s.innerHTML = d.createTemplate({
+      styles: x(this.dataset.theme)
+    }), this._shadowRoot.appendChild(s.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = p.getUser({
       username: this.dataset.username.toLowerCase()
-    }), this._GET_USER_ARTICLES = d.getUserArticles({
+    }), this._GET_USER_ARTICLES = p.getUserArticles({
       username: this.dataset.username.toLowerCase()
     });
   }
-  async fetchUser(r, o = {}) {
-    return p.fetcher({
-      query: r,
+  async fetchUser(s, o = {}) {
+    return g.fetcher({
+      query: s,
       variables: o
     }).then(({ data: t }) => {
-      var s;
-      if (((s = t == null ? void 0 : t.user) == null ? void 0 : s.name) === null) {
+      var r;
+      if (((r = t == null ? void 0 : t.user) == null ? void 0 : r.name) === null) {
         this.renderUser(this.dataset.username + " doesn't exist");
         return;
       }
@@ -324,36 +362,36 @@ class x extends HTMLElement {
       console.log(t);
     });
   }
-  renderUser(r) {
+  renderUser(s) {
     const o = this._shadowRoot.querySelector(".author-area");
-    o.innerHTML = c.createAuthorArea({
+    o.innerHTML = d.createAuthorArea({
       username: this.dataset.username,
-      ...r
+      ...s
     });
   }
-  async fetchPosts(r, o = {}) {
-    return p.fetcher({ query: r, variables: o }).then(({ data: t }) => {
+  async fetchPosts(s, o = {}) {
+    return g.fetcher({ query: s, variables: o }).then(({ data: t }) => {
       var a, i;
-      const s = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
-      this.posts = s, this.postsFetched = [...this.postsFetched, ...s], this.renderPosts(this.posts);
+      const r = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
+      this.posts = r, this.postsFetched = [...this.postsFetched, ...r], this.renderPosts(this.posts);
     });
   }
-  renderPosts(r) {
+  renderPosts(s) {
     const o = this._shadowRoot.querySelector(".blogposts-wrapper"), t = this._shadowRoot.querySelector(".blogposts-area");
-    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !r.length && this.currentPage === 0) {
+    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !s.length && this.currentPage === 0) {
       t.innerHTML = "no posts found.";
       return;
     }
-    const s = this._shadowRoot.querySelector(
+    const r = this._shadowRoot.querySelector(
       ".blogposts-area-observer"
     );
-    if (this.currentPage === 0 && this.totalPosts <= 6 && s && s.remove(), r.forEach((a) => {
-      t.innerHTML += c.createBlogpostCard({
+    if (this.currentPage === 0 && this.totalPosts <= 6 && r && r.remove(), s.forEach((a) => {
+      t.innerHTML += d.createBlogpostCard({
         username: this.dataset.username,
         ...a
       });
     }), this.totalPosts > this.postsFetched.length) {
-      if (!s) {
+      if (!r) {
         const a = document.createElement("div");
         a.classList.add("blogposts-area-observer"), o.appendChild(a), new IntersectionObserver(
           (n) => {
@@ -367,7 +405,7 @@ class x extends HTMLElement {
         ).observe(a);
       }
     } else
-      s.remove();
+      r.remove();
   }
   render() {
     this.setWidth(), this.fetchUser(this._GET_USER);
@@ -384,11 +422,11 @@ class x extends HTMLElement {
   static get observedAttributes() {
     return ["data-width"];
   }
-  attributeChangedCallback(r, o, t) {
-    r == "data-width" && o != t && (this[r] = t);
+  attributeChangedCallback(s, o, t) {
+    s == "data-width" && o != t && (this[s] = t);
   }
 }
-customElements.define("hashnode-postcard", x);
+customElements.define("hashnode-postcard", $);
 export {
-  x as HashnodePostcard
+  $ as HashnodePostcard
 };
