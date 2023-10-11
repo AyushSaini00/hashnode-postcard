@@ -29,6 +29,36 @@ const THEMES = {
       secondary: "#64748B",
     },
   },
+  dracula: {
+    background: {
+      primary: "#282a36",
+      secondary: "#383a59",
+    },
+    foreground: {
+      primary: "#bd93f9",
+      secondary: "#f8f8f2",
+    },
+  },
+  "nord-light": {
+    background: {
+      primary: "white",
+      secondary: "#f2f4f8",
+    },
+    foreground: {
+      primary: "#5e81ac",
+      secondary: "#4c566a",
+    },
+  },
+  "nord-dark": {
+    background: {
+      primary: "#434c5e",
+      secondary: "#2e3440",
+    },
+    foreground: {
+      primary: "#eceff4",
+      secondary: "#d8dee9",
+    },
+  }
 };
 
 export default THEMES;
