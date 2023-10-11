@@ -56,7 +56,7 @@ const THEMES = {
     },
     foreground: {
       primary: "#eceff4",
-      secondary: "#d8dee9",
+      secondary: "#abb9cf",
     },
   }
 };
