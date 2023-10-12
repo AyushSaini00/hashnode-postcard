@@ -41,7 +41,7 @@ const THEMES = {
   },
   "nord-light": {
     background: {
-      primary: "white",
+      primary: "#ffffff",
       secondary: "#f2f4f8",
     },
     foreground: {
