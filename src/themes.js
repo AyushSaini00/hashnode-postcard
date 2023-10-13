@@ -31,32 +31,32 @@ const THEMES = {
   },
   dracula: {
     background: {
-      primary: "#282a36",
-      secondary: "#383a59",
+      primary: "#282A36",
+      secondary: "#383A59",
     },
     foreground: {
-      primary: "#bd93f9",
-      secondary: "#f8f8f2",
+      primary: "#BD93F9",
+      secondary: "#F8F8F2",
     },
   },
   "nord-light": {
     background: {
-      primary: "#ffffff",
-      secondary: "#f2f4f8",
+      primary: "#FFFFFF",
+      secondary: "#F2F4F8",
     },
     foreground: {
-      primary: "#5e81ac",
-      secondary: "#4c566a",
+      primary: "#5E81AC",
+      secondary: "#4C566A",
     },
   },
   "nord-dark": {
     background: {
-      primary: "#434c5e",
-      secondary: "#2e3440",
+      primary: "#434C5E",
+      secondary: "#2E3440",
     },
     foreground: {
-      primary: "#eceff4",
-      secondary: "#d8dee9",
+      primary: "#ECEFF4",
+      secondary: "#D8DEE9",
     },
   }
 };
