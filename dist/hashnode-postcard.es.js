@@ -2,37 +2,37 @@ function f(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
 var l = { exports: {} };
-function m(e, s, o) {
+function m(e, r, o) {
   const t = o || ".";
-  let r;
+  let s;
   {
     let a;
     switch (typeof e) {
       case "string":
         if (e.length < (e[0] === "-" ? 5 : 4))
           return e;
-        r = e, a = Number(
-          t !== "." ? r.replace(t, ".") : r
+        s = e, a = Number(
+          t !== "." ? s.replace(t, ".") : s
         );
         break;
       case "number":
-        r = String(e), a = e, t !== "." && !Number.isInteger(e) && (r = r.replace(".", t));
+        s = String(e), a = e, t !== "." && !Number.isInteger(e) && (s = s.replace(".", t));
         break;
       default:
         return e;
     }
     if (-1e3 < a && a < 1e3 || isNaN(a) || !isFinite(a))
-      return r;
+      return s;
   }
   {
-    const a = r.lastIndexOf(t);
+    const a = s.lastIndexOf(t);
     let i;
-    a > -1 && (i = r.slice(a), r = r.slice(0, a));
-    const n = v(r, s || ",");
+    a > -1 && (i = s.slice(a), s = s.slice(0, a));
+    const n = y(s, r || ",");
     return i && n.push(i), n.join("");
   }
 }
-function v(e, s) {
+function y(e, r) {
   let o = (e.length - 1) % 3 + 1;
   o === 1 && e[0] === "-" && (o = 4);
   const t = [
@@ -41,23 +41,23 @@ function v(e, s) {
     // grab part before the first separator
   ];
   for (; o < e.length; o += 3)
-    t.push(s, e.substr(o, 3));
+    t.push(r, e.substr(o, 3));
   return t;
 }
-function b(e, s) {
+function b(e, r) {
   return function(o) {
-    return m(o, e, s);
+    return m(o, e, r);
   };
 }
 l.exports = m;
 l.exports.bindWith = b;
-var y = l.exports;
-const h = /* @__PURE__ */ f(y), d = {
+var v = l.exports;
+const h = /* @__PURE__ */ f(v), c = {
   createTemplate(e) {
-    const { styles: s } = e;
+    const { styles: r } = e;
     return `
         <style>
-            ${s}
+            ${r}
         </style>
         <div class="card">
             <div class="author-area"></div>
@@ -68,19 +68,19 @@ const h = /* @__PURE__ */ f(y), d = {
         `;
   },
   createAuthorArea(e) {
-    const { username: s, photo: o, name: t, tagline: r, followers: a, numFollowers: i } = e;
+    const { username: r, photo: o, name: t, tagline: s, followers: a, numFollowers: i } = e;
     return `
         <div class="author-profile-and-text">
-          ${o ? `<a class="flex" href="https://hashnode.com/@${s}">
+          ${o ? `<a class="flex" href="https://hashnode.com/@${r}">
                     <img class="author-profile-photo" src="${o}" alt="${t}"/>
                   </a>` : ""}
           <div class="author-details">
-              <a href="https://hashnode.com/@${s}">
+              <a href="https://hashnode.com/@${r}">
                 <div class="author-name">
                     ${t}
                 </div>
               </a>
-              ${r ? `<p class="author-tagline">${r}</p>` : ""}
+              ${s ? `<p class="author-tagline">${s}</p>` : ""}
               ${i ? a === "false" ? "" : `<p class="author-followers">${h(
       i
     )} followers</p>` : ""}
@@ -90,17 +90,17 @@ const h = /* @__PURE__ */ f(y), d = {
   },
   createBlogpostCard(e) {
     const {
-      username: s,
+      username: r,
       slug: o,
       title: t,
-      dateAdded: r,
+      dateAdded: s,
       totalReactions: a,
       brief: i,
       coverImage: n
-    } = e, u = new Date(r);
+    } = e, u = new Date(s);
     return `
             <a class="post-link" 
-               href="https://${s}.hashnode.dev/${o}" 
+               href="https://${r}.hashnode.dev/${o}" 
                target="_blank"
                rel="noopener noreferrer"
             >
@@ -132,7 +132,7 @@ const h = /* @__PURE__ */ f(y), d = {
             </a>
         `;
   }
-}, c = {
+}, d = {
   default: {
     background: {
       primary: "#18191a",
@@ -162,15 +162,45 @@ const h = /* @__PURE__ */ f(y), d = {
       primary: "#334155",
       secondary: "#64748B"
     }
+  },
+  dracula: {
+    background: {
+      primary: "#282A36",
+      secondary: "#383A59"
+    },
+    foreground: {
+      primary: "#BD93F9",
+      secondary: "#F8F8F2"
+    }
+  },
+  "nord-light": {
+    background: {
+      primary: "#FFFFFF",
+      secondary: "#F2F4F8"
+    },
+    foreground: {
+      primary: "#5E81AC",
+      secondary: "#4C566A"
+    }
+  },
+  "nord-dark": {
+    background: {
+      primary: "#434C5E",
+      secondary: "#2E3440"
+    },
+    foreground: {
+      primary: "#ECEFF4",
+      secondary: "#D8DEE9"
+    }
   }
-}, w = Object.keys(c) || [], x = (e) => (e ? w.includes(e) || (console.warn(
+}, w = Object.keys(d) || [], x = (e) => (e ? w.includes(e) || (console.warn(
   `selectedTheme's value of "${e}" doesn't match to any of the existing themes, using default theme for now`
 ), e = "default") : (console.warn("selectedTheme is undefined, using default theme for now"), e = "default"), `
     :host {
-        --primary-bg: ${c[e].background.primary};
-        --secondary-bg: ${c[e].background.secondary};
-        --primary-fg: ${c[e].foreground.primary};
-        --secondary-fg: ${c[e].foreground.secondary};
+        --primary-bg: ${d[e].background.primary};
+        --secondary-bg: ${d[e].background.secondary};
+        --primary-fg: ${d[e].foreground.primary};
+        --secondary-fg: ${d[e].foreground.secondary};
     }
     .flex {
         display: flex;
@@ -332,28 +362,28 @@ const h = /* @__PURE__ */ f(y), d = {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(e)
-    }).then((s) => s.json());
+    }).then((r) => r.json());
   }
 };
-class $ extends HTMLElement {
+class F extends HTMLElement {
   constructor() {
     super(), this._shadowRoot = this.attachShadow({ mode: "open" });
-    const s = document.createElement("template");
-    s.innerHTML = d.createTemplate({
+    const r = document.createElement("template");
+    r.innerHTML = c.createTemplate({
       styles: x(this.dataset.theme)
-    }), this._shadowRoot.appendChild(s.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = p.getUser({
+    }), this._shadowRoot.appendChild(r.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = p.getUser({
       username: this.dataset.username.toLowerCase()
     }), this._GET_USER_ARTICLES = p.getUserArticles({
       username: this.dataset.username.toLowerCase()
     });
   }
-  async fetchUser(s, o = {}) {
+  async fetchUser(r, o = {}) {
     return g.fetcher({
-      query: s,
+      query: r,
       variables: o
     }).then(({ data: t }) => {
-      var r;
-      if (((r = t == null ? void 0 : t.user) == null ? void 0 : r.name) === null) {
+      var s;
+      if (((s = t == null ? void 0 : t.user) == null ? void 0 : s.name) === null) {
         this.renderUser(this.dataset.username + " doesn't exist");
         return;
       }
@@ -362,36 +392,36 @@ class $ extends HTMLElement {
       console.log(t);
     });
   }
-  renderUser(s) {
+  renderUser(r) {
     const o = this._shadowRoot.querySelector(".author-area");
-    o.innerHTML = d.createAuthorArea({
+    o.innerHTML = c.createAuthorArea({
       username: this.dataset.username,
-      ...s
+      ...r
     });
   }
-  async fetchPosts(s, o = {}) {
-    return g.fetcher({ query: s, variables: o }).then(({ data: t }) => {
+  async fetchPosts(r, o = {}) {
+    return g.fetcher({ query: r, variables: o }).then(({ data: t }) => {
       var a, i;
-      const r = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
-      this.posts = r, this.postsFetched = [...this.postsFetched, ...r], this.renderPosts(this.posts);
+      const s = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
+      this.posts = s, this.postsFetched = [...this.postsFetched, ...s], this.renderPosts(this.posts);
     });
   }
-  renderPosts(s) {
+  renderPosts(r) {
     const o = this._shadowRoot.querySelector(".blogposts-wrapper"), t = this._shadowRoot.querySelector(".blogposts-area");
-    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !s.length && this.currentPage === 0) {
+    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !r.length && this.currentPage === 0) {
       t.innerHTML = "no posts found.";
       return;
     }
-    const r = this._shadowRoot.querySelector(
+    const s = this._shadowRoot.querySelector(
       ".blogposts-area-observer"
     );
-    if (this.currentPage === 0 && this.totalPosts <= 6 && r && r.remove(), s.forEach((a) => {
-      t.innerHTML += d.createBlogpostCard({
+    if (this.currentPage === 0 && this.totalPosts <= 6 && s && s.remove(), r.forEach((a) => {
+      t.innerHTML += c.createBlogpostCard({
         username: this.dataset.username,
         ...a
       });
     }), this.totalPosts > this.postsFetched.length) {
-      if (!r) {
+      if (!s) {
         const a = document.createElement("div");
         a.classList.add("blogposts-area-observer"), o.appendChild(a), new IntersectionObserver(
           (n) => {
@@ -405,7 +435,7 @@ class $ extends HTMLElement {
         ).observe(a);
       }
     } else
-      r.remove();
+      s.remove();
   }
   render() {
     this.setWidth(), this.fetchUser(this._GET_USER);
@@ -422,11 +452,11 @@ class $ extends HTMLElement {
   static get observedAttributes() {
     return ["data-width"];
   }
-  attributeChangedCallback(s, o, t) {
-    s == "data-width" && o != t && (this[s] = t);
+  attributeChangedCallback(r, o, t) {
+    r == "data-width" && o != t && (this[r] = t);
   }
 }
-customElements.define("hashnode-postcard", $);
+customElements.define("hashnode-postcard", F);
 export {
-  $ as HashnodePostcard
+  F as HashnodePostcard
 };
