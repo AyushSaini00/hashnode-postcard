@@ -89,15 +89,7 @@ const h = /* @__PURE__ */ f(v), c = {
     `;
   },
   createBlogpostCard(e) {
-    const {
-      username: r,
-      slug: o,
-      title: t,
-      dateAdded: s,
-      totalReactions: a,
-      brief: i,
-      coverImage: n
-    } = e, u = new Date(s);
+    const { username: r, slug: o, title: t, dateAdded: s, totalReactions: a, brief: i, coverImage: n } = e, u = new Date(s);
     return `
             <a class="post-link" 
                href="https://${r}.hashnode.dev/${o}" 
@@ -412,9 +404,7 @@ class F extends HTMLElement {
       t.innerHTML = "no posts found.";
       return;
     }
-    const s = this._shadowRoot.querySelector(
-      ".blogposts-area-observer"
-    );
+    const s = this._shadowRoot.querySelector(".blogposts-area-observer");
     if (this.currentPage === 0 && this.totalPosts <= 6 && s && s.remove(), r.forEach((a) => {
       t.innerHTML += c.createBlogpostCard({
         username: this.dataset.username,
