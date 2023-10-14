@@ -38,7 +38,7 @@ const domElements = {
                   ? followers === "false"
                     ? ""
                     : `<p class="author-followers">${commaNumber(
-                        numFollowers
+                        numFollowers,
                       )} followers</p>`
                   : ""
               }
@@ -47,15 +47,7 @@ const domElements = {
     `;
   },
   createBlogpostCard(props) {
-    const {
-      username,
-      slug,
-      title,
-      dateAdded,
-      totalReactions,
-      brief,
-      coverImage,
-    } = props;
+    const { username, slug, title, dateAdded, totalReactions, brief, coverImage } = props;
 
     const date = new Date(dateAdded);
 
@@ -82,11 +74,7 @@ const domElements = {
                           ${commaNumber(totalReactions)}
                       </div>
                     </div>
-                    ${
-                      brief === "false"
-                        ? ""
-                        : `<p class="post-brief">${brief}</p>`
-                    }
+                    ${brief === "false" ? "" : `<p class="post-brief">${brief}</p>`}
                   </div>
                     ${
                       coverImage === "false"

@@ -58,7 +58,7 @@ const THEMES = {
       primary: "#ECEFF4",
       secondary: "#D8DEE9",
     },
-  }
+  },
 };
 
 export default THEMES;

@@ -74,8 +74,7 @@ export class HashnodePostcard extends HTMLElement {
   }
 
   renderPosts(posts) {
-    const blogpostsWrapperElem =
-      this._shadowRoot.querySelector(".blogposts-wrapper");
+    const blogpostsWrapperElem = this._shadowRoot.querySelector(".blogposts-wrapper");
     const blogpostsArea = this._shadowRoot.querySelector(".blogposts-area");
 
     this.setHeight();
@@ -89,9 +88,7 @@ export class HashnodePostcard extends HTMLElement {
       return;
     }
 
-    const observerElem = this._shadowRoot.querySelector(
-      ".blogposts-area-observer"
-    );
+    const observerElem = this._shadowRoot.querySelector(".blogposts-area-observer");
     // remove the observer if it exits in below condition
     if (this.currentPage === 0 && this.totalPosts <= 6) {
       if (observerElem) {
@@ -124,7 +121,7 @@ export class HashnodePostcard extends HTMLElement {
           },
           {
             threshold: 1,
-          }
+          },
         );
         observer.observe(newObserverElem);
       }
@@ -151,8 +148,7 @@ export class HashnodePostcard extends HTMLElement {
 
   setHeight() {
     if (this.dataset.height) {
-      this._shadowRoot.querySelector(".blogposts-area").style.overflowY =
-        "scroll";
+      this._shadowRoot.querySelector(".blogposts-area").style.overflowY = "scroll";
       this._shadowRoot.querySelector(".blogposts-area").style.maxHeight =
         this.dataset.height;
     }

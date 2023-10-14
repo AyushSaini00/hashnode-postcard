@@ -1,0 +1,5 @@
+# Ignore artifacts:
+dist
+nextjs-demo
+node_modules
+index.html

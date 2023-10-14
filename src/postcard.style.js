@@ -7,7 +7,7 @@ export const styles = (selectedTheme) => {
     selectedTheme = "default";
   } else if (!availableThemes.includes(selectedTheme)) {
     console.warn(
-      `selectedTheme's value of "${selectedTheme}" doesn't match to any of the existing themes, using default theme for now`
+      `selectedTheme's value of "${selectedTheme}" doesn't match to any of the existing themes, using default theme for now`,
     );
     selectedTheme = "default";
   }

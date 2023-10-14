@@ -61,3 +61,12 @@ Following data attributes are available to customize the postcard.
 | data-followers   | to show the number of followers            | false      | optional (default is true)    |
 | data-brief       | to show the brief description of blogposts | true       | optional (default is true)    |
 | data-theme       | to change the theme of the interface       | default    | optional (default is default) |
+
+#### available themes
+
+- default
+- devto
+- hashnode-light-mode
+- dracula
+- nord-light
+- nord-dark
