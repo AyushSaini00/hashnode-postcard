@@ -1,12 +1,12 @@
 const THEMES = {
   default: {
     background: {
-      primary: "#18191a",
+      primary: "#18191A",
       secondary: "#303031",
     },
     foreground: {
-      primary: "#ffffff",
-      secondary: "#bdbdbd",
+      primary: "#FFFFFF",
+      secondary: "#BDBDBD",
     },
   },
   devto: {
@@ -19,7 +19,7 @@ const THEMES = {
       secondary: "#171717",
     },
   },
-  "hashnode-light-mode": {
+  "hashnode-light": {
     background: {
       primary: "#FFFFFF",
       secondary: "#F8FAFC",
