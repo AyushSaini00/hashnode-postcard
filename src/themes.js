@@ -59,6 +59,26 @@ const THEMES = {
       secondary: "#D8DEE9",
     },
   },
+  "gruvbox-light": {
+    background: {
+      primary: "#FBF1C7",
+      secondary: "#EBDBB2",
+    },
+    foreground: {
+      primary: "#B57614",
+      secondary: "#3C3836",
+    },
+  },
+  "gruvbox-dark": {
+    background: {
+      primary: "#282828",
+      secondary: "#3C3836",
+    },
+    foreground: {
+      primary: "#FABD2F",
+      secondary: "#EBDBB2",
+    },
+  }
 };
 
 export default THEMES;
