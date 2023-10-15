@@ -64,11 +64,13 @@ Following data attributes are available to customize the postcard.
 
 #### available themes
 
-| No. | theme-name     | reference                 |
-| --- | -------------- | ------------------------- |
-| 1   | default        | https://hashnode.com      |
-| 2   | devto          | https://dev.to            |
-| 3   | hashnode-light | https://hashnode.com      |
-| 4   | dracula        | https://draculatheme.com  |
-| 5   | nord-light     | https://www.nordtheme.com |
-| 6   | nord-dark      | https://www.nordtheme.com |
+| No. | theme-name     | reference                          |
+| --- | -------------- | ---------------------------------- |
+| 1   | default        | https://hashnode.com               |
+| 2   | devto          | https://dev.to                     |
+| 3   | hashnode-light | https://hashnode.com               |
+| 4   | dracula        | https://draculatheme.com           |
+| 5   | nord-light     | https://www.nordtheme.com          |
+| 6   | nord-dark      | https://www.nordtheme.com          |
+| 7   | gruvbox-light  | https://github.com/morhetz/gruvbox |
+| 8   | gruvbox-dark   | https://github.com/morhetz/gruvbox |
