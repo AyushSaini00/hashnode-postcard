@@ -78,17 +78,17 @@ const THEMES = {
       primary: "#FABD2F",
       secondary: "#EBDBB2",
     },
-  }
-    "synthwave": {
-    "background": {
-      "primary": "#000000",
-      "secondary": "#2B2B2B",
+  },
+  synthwave: {
+    background: {
+      primary: "#000000",
+      secondary: "#2B2B2B",
     },
-    "foreground": {
-      "primary": "#FF6B00",
-      "secondary": "#00E7FF",
-    }
-  }
+    foreground: {
+      primary: "#FF6B00",
+      secondary: "#00E7FF",
+    },
+  },
 };
 
 export default THEMES;
