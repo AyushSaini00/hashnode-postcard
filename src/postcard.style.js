@@ -22,6 +22,18 @@ export const styles = (selectedTheme) => {
     .flex {
         display: flex;
     }
+    .hidden {
+        display: none !important;
+    }
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-bg);
+    }
+    .loader > svg {
+        stroke: var(--secondary-fg);
+    }
     .card * {
         margin: 0;
         padding: 0;
