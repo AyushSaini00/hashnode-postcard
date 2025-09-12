@@ -1,4 +1,4 @@
-const d = {
+const l = {
   default: {
     background: {
       primary: "#18191A",
@@ -89,14 +89,14 @@ const d = {
       secondary: "#00E7FF"
     }
   }
-}, b = Object.keys(d) || [], w = (e) => (e ? b.includes(e) || (console.warn(
-  `selectedTheme's value of "${e}" doesn't match to any of the existing themes, using default theme for now`
-), e = "default") : (console.warn("selectedTheme is undefined, using default theme for now"), e = "default"), `
+}, b = Object.keys(l) || [], w = (r) => (r ? b.includes(r) || (console.warn(
+  `selectedTheme's value of "${r}" doesn't match to any of the existing themes, using default theme for now`
+), r = "default") : (console.warn("selectedTheme is undefined, using default theme for now"), r = "default"), `
     :host {
-        --primary-bg: ${d[e].background.primary};
-        --secondary-bg: ${d[e].background.secondary};
-        --primary-fg: ${d[e].foreground.primary};
-        --secondary-fg: ${d[e].foreground.secondary};
+        --primary-bg: ${l[r].background.primary};
+        --secondary-bg: ${l[r].background.secondary};
+        --primary-fg: ${l[r].foreground.primary};
+        --secondary-fg: ${l[r].foreground.secondary};
     }
     .flex {
         display: flex;
@@ -252,10 +252,10 @@ const d = {
         }
     }
 `);
-function F({ username: e }) {
+function F({ username: r }) {
   return `
       query GetUser($pageSize: Int!, $page: Int!) {
-        user(username: "${e}") {
+        user(username: "${r}") {
           name
           tagline
           followersCount
@@ -280,70 +280,77 @@ function F({ username: e }) {
       }
     `;
 }
-async function x(e) {
+async function x(r) {
   return fetch("https://gql.hashnode.com/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(e)
-  }).then((r) => r.json());
+    body: JSON.stringify(r)
+  }).then((t) => t.json());
 }
-function k(e) {
-  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+function k(r) {
+  return r && r.__esModule && Object.prototype.hasOwnProperty.call(r, "default") ? r.default : r;
 }
-var h = { exports: {} };
-function p(e, r, a) {
-  const s = a || ".";
-  let t;
-  {
-    let o;
-    switch (typeof e) {
-      case "string":
-        if (e.length < (e[0] === "-" ? 5 : 4))
+var p = { exports: {} }, m;
+function $() {
+  if (m) return p.exports;
+  m = 1;
+  function r(e, o, s) {
+    const i = s || ".";
+    let a;
+    {
+      let n;
+      switch (typeof e) {
+        case "string":
+          if (e.length < (e[0] === "-" ? 5 : 4))
+            return e;
+          a = e, n = Number(
+            i !== "." ? a.replace(i, ".") : a
+          );
+          break;
+        // convert to a string.
+        // NOTE: don't check if the number is too small before converting
+        //       because we'll need to return `stringNumber` anyway.
+        case "number":
+          a = String(e), n = e, i !== "." && !Number.isInteger(e) && (a = a.replace(".", i));
+          break;
+        // return invalid type as-is
+        default:
           return e;
-        t = e, o = Number(
-          s !== "." ? t.replace(s, ".") : t
-        );
-        break;
-      case "number":
-        t = String(e), o = e, s !== "." && !Number.isInteger(e) && (t = t.replace(".", s));
-        break;
-      default:
-        return e;
+      }
+      if (-1e3 < n && n < 1e3 || isNaN(n) || !isFinite(n))
+        return a;
     }
-    if (-1e3 < o && o < 1e3 || isNaN(o) || !isFinite(o))
-      return t;
+    {
+      const n = a.lastIndexOf(i);
+      let c;
+      n > -1 && (c = a.slice(n), a = a.slice(0, n));
+      const h = t(a, o || ",");
+      return c && h.push(c), h.join("");
+    }
   }
-  {
-    const o = t.lastIndexOf(s);
-    let i;
-    o > -1 && (i = t.slice(o), t = t.slice(0, o));
-    const n = $(t, r || ",");
-    return i && n.push(i), n.join("");
+  function t(e, o) {
+    let s = (e.length - 1) % 3 + 1;
+    s === 1 && e[0] === "-" && (s = 4);
+    const i = [
+      // holds the string parts
+      e.slice(0, s)
+      // grab part before the first separator
+    ];
+    for (; s < e.length; s += 3)
+      i.push(o, e.substr(s, 3));
+    return i;
   }
+  function d(e, o) {
+    return function(s) {
+      return r(s, e, o);
+    };
+  }
+  return p.exports = r, p.exports.bindWith = d, p.exports;
 }
-function $(e, r) {
-  let a = (e.length - 1) % 3 + 1;
-  a === 1 && e[0] === "-" && (a = 4);
-  const s = [
-    // holds the string parts
-    e.slice(0, a)
-    // grab part before the first separator
-  ];
-  for (; a < e.length; a += 3)
-    s.push(r, e.substr(a, 3));
-  return s;
-}
-function _(e, r) {
-  return function(a) {
-    return p(a, e, r);
-  };
-}
-h.exports = p;
-h.exports.bindWith = _;
-var E = h.exports;
-const g = /* @__PURE__ */ k(E), m = `
+var _ = $();
+const u = /* @__PURE__ */ k(_), f = `
 <svg 
   width="24" 
   height="24" 
@@ -356,21 +363,21 @@ const g = /* @__PURE__ */ k(E), m = `
     <circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
   </g>
 </svg>
-`, S = (e = "fetching more posts...") => `
+`, C = (r = "fetching more posts...") => `
 <div class="flex justify-center items-center w-100 mt-4">
-  ${m}
-  <span class="ml-2">${e}</span>
-</div>`, C = (e = "Something went wrong!") => `
+  ${f}
+  <span class="ml-2">${r}</span>
+</div>`, E = (r = "Something went wrong!") => `
 <div class="error-state">
-  <div>${e}</div>
+  <div>${r}</div>
 </div>
-`, B = (e) => {
-  const { styles: r } = e;
+`, S = (r) => {
+  const { styles: t } = r;
   return `
         <style>
-            ${r}
+            ${t}
         </style>
-        <div class="loader">${m}</div>
+        <div class="loader">${f}</div>
         <div class="card">
             <div class="author-area"></div>
             <div class="blogposts-wrapper">
@@ -378,34 +385,33 @@ const g = /* @__PURE__ */ k(E), m = `
             </div>
         </div>
         `;
-}, A = (e) => {
-  const { dataAttributes: r, user: a } = e;
-  if (!a)
-    return `${t} doesn't exist`;
-  const { showFollowers: s, username: t } = r, { name: o, tagline: i, followersCount: n, profilePicture: c } = a;
+}, B = (r) => {
+  const { dataAttributes: t, user: d } = r;
+  if (!d) return `${o} doesn't exist`;
+  const { showFollowers: e, username: o } = t, { name: s, tagline: i, followersCount: a, profilePicture: n } = d;
   return `
         <div class="author-profile-and-text">
-          ${c ? `<a class="flex" href="https://hashnode.com/@${t}">
-                    <img class="author-profile-photo" src="${c}" alt="${o}"/>
+          ${n ? `<a class="flex" href="https://hashnode.com/@${o}">
+                    <img class="author-profile-photo" src="${n}" alt="${s}"/>
                   </a>` : ""}
           <div class="author-details">
-              <a href="https://hashnode.com/@${t}">
+              <a href="https://hashnode.com/@${o}">
                 <div class="author-name">
-                    ${o}
+                    ${s}
                 </div>
               </a>
               ${i ? `<p class="author-tagline">${i}</p>` : ""}
-              ${s === "false" ? "" : n ? `<p class="author-followers">${g(
-    n
+              ${e === "false" ? "" : a ? `<p class="author-followers">${u(
+    a
   )} followers</p>` : ""}
           </div>
         </div>
     `;
-}, P = (e) => {
-  const { node: r, dataAttributes: a } = e, { showCoverImage: s, showBrief: t } = a, { url: o, title: i, publishedAt: n, reactionCount: c, brief: u, coverImage: f } = r, y = new Date(n), v = f.url;
+}, A = (r) => {
+  const { node: t, dataAttributes: d } = r, { showCoverImage: e, showBrief: o } = d, { url: s, title: i, publishedAt: a, reactionCount: n, brief: c, coverImage: h } = t, y = new Date(a), v = h.url;
   return `
             <a class="post-link" 
-               href="${o}" 
+               href="${s}" 
                target="_blank"
                rel="noopener noreferrer"
             >
@@ -423,12 +429,12 @@ const g = /* @__PURE__ */ k(E), m = `
                           <svg class="post-svg" viewBox="0 0 512 512">
                               <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
                           </svg>
-                          ${g(c)}
+                          ${u(n)}
                       </div>
                     </div>
-                    ${t === "false" ? "" : `<p class="post-brief">${u}</p>`}
+                    ${o === "false" ? "" : `<p class="post-brief">${c}</p>`}
                   </div>
-                    ${s === "false" ? "" : `<img 
+                    ${e === "false" ? "" : `<img 
                             class="post-cover-image" 
                             src="${v}" 
                             alt="${i} cover" 
@@ -436,80 +442,80 @@ const g = /* @__PURE__ */ k(E), m = `
                 </div>
             </a>
         `;
-}, l = 20;
-class L extends HTMLElement {
+}, g = 20;
+class P extends HTMLElement {
   constructor() {
     super(), this._shadowRoot = this.attachShadow({ mode: "open" });
-    const r = document.createElement("template");
-    r.innerHTML = B({
+    const t = document.createElement("template");
+    t.innerHTML = S({
       styles: w(this.dataset.theme)
-    }), this._shadowRoot.appendChild(r.content.cloneNode(!0)), this.currentPage = 1, this.fetchedPosts = [], this._GET_USER = F({
+    }), this._shadowRoot.appendChild(t.content.cloneNode(!0)), this.currentPage = 1, this.fetchedPosts = [], this._GET_USER = F({
       username: this.dataset.username
     });
   }
-  async fetchUser(r, a = {}) {
+  async fetchUser(t, d = {}) {
     return x({
-      query: r,
-      variables: a
-    }).then(({ data: s }) => {
-      if (!(s != null && s.user)) {
+      query: t,
+      variables: d
+    }).then(({ data: e }) => {
+      if (!e?.user) {
         this.renderUser({ user: null });
         return;
       }
-      this.fetchedUser = s.user;
-      const t = s.user.posts.edges ?? [];
-      this.fetchedPosts = [...this.fetchedPosts, ...t], this.totalPostsCount = s.user.posts.totalDocuments, this.renderUser({ user: this.fetchedUser }), this.renderPosts(t);
-    }).catch((s) => {
-      console.error(s), this.hideLoader();
-      const t = this._shadowRoot.querySelector(".card"), o = this._shadowRoot.querySelector(".author-area"), i = this._shadowRoot.querySelector(".blogposts-wrapper");
-      o.remove(), i.remove(), t.innerHTML = C();
+      this.fetchedUser = e.user;
+      const o = e.user.posts.edges ?? [];
+      this.fetchedPosts = [...this.fetchedPosts, ...o], this.totalPostsCount = e.user.posts.totalDocuments, this.renderUser({ user: this.fetchedUser }), this.renderPosts(o);
+    }).catch((e) => {
+      console.error(e), this.hideLoader();
+      const o = this._shadowRoot.querySelector(".card"), s = this._shadowRoot.querySelector(".author-area"), i = this._shadowRoot.querySelector(".blogposts-wrapper");
+      s.remove(), i.remove(), o.innerHTML = E();
     });
   }
   hideLoader() {
-    const r = this._shadowRoot.querySelector(".loader");
-    r && r.classList.add("hidden");
+    const t = this._shadowRoot.querySelector(".loader");
+    t && t.classList.add("hidden");
   }
-  renderUser(r) {
+  renderUser(t) {
     this.hideLoader();
-    const a = this._shadowRoot.querySelector(".author-area");
-    a.innerHTML = A({
+    const d = this._shadowRoot.querySelector(".author-area");
+    d.innerHTML = B({
       dataAttributes: this.dataset,
-      ...r
+      ...t
     });
   }
-  renderPosts(r) {
-    const a = this._shadowRoot.querySelector(".blogposts-wrapper"), s = this._shadowRoot.querySelector(".blogposts-area");
-    if (this.setHeight(), this.currentPage === 1 && (s.innerHTML = ""), !r.length && this.currentPage === 1) {
-      s.innerHTML = "no posts found.";
+  renderPosts(t) {
+    const d = this._shadowRoot.querySelector(".blogposts-wrapper"), e = this._shadowRoot.querySelector(".blogposts-area");
+    if (this.setHeight(), this.currentPage === 1 && (e.innerHTML = ""), !t.length && this.currentPage === 1) {
+      e.innerHTML = "no posts found.";
       return;
     }
-    const t = this._shadowRoot.querySelector(".blogposts-area-observer");
-    if (this.currentPage === 1 && this.totalPostsCount <= l && t && t.remove(), r.forEach(({ node: o }) => {
-      s.innerHTML += P({
+    const o = this._shadowRoot.querySelector(".blogposts-area-observer");
+    if (this.currentPage === 1 && this.totalPostsCount <= g && o && o.remove(), t.forEach(({ node: s }) => {
+      e.innerHTML += A({
         dataAttributes: this.dataset,
-        node: o
+        node: s
       });
     }), this.totalPostsCount > this.fetchedPosts.length) {
-      if (!t) {
-        const o = document.createElement("div");
-        o.classList.add("blogposts-area-observer"), a.appendChild(o), new IntersectionObserver(
-          (n) => {
-            n[0].isIntersecting && (this.currentPage += 1, o.innerHTML = S(), this.fetchUser(this._GET_USER, {
-              pageSize: l,
+      if (!o) {
+        const s = document.createElement("div");
+        s.classList.add("blogposts-area-observer"), d.appendChild(s), new IntersectionObserver(
+          (a) => {
+            a[0].isIntersecting && (this.currentPage += 1, s.innerHTML = C(), this.fetchUser(this._GET_USER, {
+              pageSize: g,
               page: this.currentPage
             }));
           },
           {
             threshold: 1
           }
-        ).observe(o);
+        ).observe(s);
       }
     } else
-      t && t.remove();
+      o && o.remove();
   }
   render() {
     this.setWidth(), this.fetchUser(this._GET_USER, {
-      pageSize: l,
+      pageSize: g,
       page: 1
     });
   }
@@ -525,11 +531,11 @@ class L extends HTMLElement {
   static get observedAttributes() {
     return ["data-width"];
   }
-  attributeChangedCallback(r, a, s) {
-    r == "data-width" && a != s && (this[r] = s);
+  attributeChangedCallback(t, d, e) {
+    t == "data-width" && d != e && (this[t] = e);
   }
 }
-customElements.define("hashnode-postcard", L);
+customElements.define("hashnode-postcard", P);
 export {
-  L as HashnodePostcard
+  P as HashnodePostcard
 };

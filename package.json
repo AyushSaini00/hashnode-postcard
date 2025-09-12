@@ -37,7 +37,7 @@
   "license": "MIT",
   "devDependencies": {
     "prettier": "3.0.3",
-    "vite": "^4.4.9"
+    "vite": "^7.1.5"
   },
   "dependencies": {
     "comma-number": "^2.1.0"
