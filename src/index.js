@@ -1,9 +1,15 @@
 import { styles } from "./postcard.style.js";
-import { createAuthorArea, createBlogpostCard, createTemplate } from "./domElements.js";
 import getUserQuery from "./queries/getUser.js";
 import fetcher from "./utils/fetcher.js";
+import {
+  createAuthorArea,
+  createBlogpostCard,
+  createTemplate,
+  ErrorState,
+  LoadingMoreItems,
+} from "./domElements.js";
 
-const MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO = 20; // max count allowed by hashnode API
+const MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO = 20; // max count allowed by hashnode API https://apidocs.hashnode.com/#introduction-item-8
 
 //extending to HTMLElements help to create custom html elements
 export class HashnodePostcard extends HTMLElement {
@@ -48,16 +54,29 @@ export class HashnodePostcard extends HTMLElement {
 
         this.renderUser({ user: this.fetchedUser });
         this.renderPosts(posts);
-        // this.fetchPosts(this._GET_USER_ARTICLES, { page: this.currentPage });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        this.hideLoader();
+
+        const card = this._shadowRoot.querySelector(".card");
+        const authorArea = this._shadowRoot.querySelector(".author-area");
+        const blogpostsWrapperElem = this._shadowRoot.querySelector(".blogposts-wrapper");
+
+        authorArea.remove();
+        blogpostsWrapperElem.remove();
+
+        card.innerHTML = ErrorState();
       });
   }
 
-  renderUser(fetchedUser) {
+  hideLoader() {
     const loader = this._shadowRoot.querySelector(".loader");
     if (loader) loader.classList.add("hidden");
+  }
+
+  renderUser(fetchedUser) {
+    this.hideLoader();
 
     const authorArea = this._shadowRoot.querySelector(".author-area");
     authorArea.innerHTML = createAuthorArea({
@@ -109,7 +128,7 @@ export class HashnodePostcard extends HTMLElement {
           (entries) => {
             if (entries[0].isIntersecting) {
               this.currentPage += 1;
-              newObserverElem.innerHTML = "fetching more posts...";
+              newObserverElem.innerHTML = LoadingMoreItems();
               this.fetchUser(this._GET_USER, {
                 pageSize: MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO,
                 page: this.currentPage,
@@ -123,7 +142,7 @@ export class HashnodePostcard extends HTMLElement {
         observer.observe(newObserverElem);
       }
     } else {
-      observerElem.remove();
+      if (observerElem) observerElem.remove();
     }
   }
 

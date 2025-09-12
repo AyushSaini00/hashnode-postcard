@@ -15,6 +15,18 @@ export const LoadingSpinner = `
 </svg>
 `;
 
+export const LoadingMoreItems = (loadMoreText = "fetching more posts...") => `
+<div class="flex justify-center items-center w-100 mt-4">
+  ${LoadingSpinner}
+  <span class="ml-2">${loadMoreText}</span>
+</div>`;
+
+export const ErrorState = (errMessage = "Something went wrong!") => `
+<div class="error-state">
+  <div>${errMessage}</div>
+</div>
+`;
+
 export const createTemplate = (props) => {
   const { styles } = props;
   return `
