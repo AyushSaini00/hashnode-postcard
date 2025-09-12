@@ -22,6 +22,39 @@ export const styles = (selectedTheme) => {
     .flex {
         display: flex;
     }
+    .justify-center {
+        justify-content: center;
+    }
+    .items-center {
+        align-items: center;
+    }
+    .w-100 {
+        width: 100%;
+    }
+    .mt-4 {
+        margin-top: 1rem !important;
+    }
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+    .ml-2 {
+        margin-left: 0.5rem !important;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-bg);
+    }
+    .loader > svg {
+        stroke: var(--secondary-fg);
+    }
+    .error-state {
+        background: var(--primary-bg);
+    }
     .card * {
         margin: 0;
         padding: 0;

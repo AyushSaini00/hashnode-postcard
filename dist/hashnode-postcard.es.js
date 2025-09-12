@@ -1,138 +1,12 @@
-function f(e) {
-  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
-}
-var l = { exports: {} };
-function m(e, r, o) {
-  const t = o || ".";
-  let s;
-  {
-    let a;
-    switch (typeof e) {
-      case "string":
-        if (e.length < (e[0] === "-" ? 5 : 4))
-          return e;
-        s = e, a = Number(
-          t !== "." ? s.replace(t, ".") : s
-        );
-        break;
-      case "number":
-        s = String(e), a = e, t !== "." && !Number.isInteger(e) && (s = s.replace(".", t));
-        break;
-      default:
-        return e;
-    }
-    if (-1e3 < a && a < 1e3 || isNaN(a) || !isFinite(a))
-      return s;
-  }
-  {
-    const a = s.lastIndexOf(t);
-    let i;
-    a > -1 && (i = s.slice(a), s = s.slice(0, a));
-    const n = y(s, r || ",");
-    return i && n.push(i), n.join("");
-  }
-}
-function y(e, r) {
-  let o = (e.length - 1) % 3 + 1;
-  o === 1 && e[0] === "-" && (o = 4);
-  const t = [
-    // holds the string parts
-    e.slice(0, o)
-    // grab part before the first separator
-  ];
-  for (; o < e.length; o += 3)
-    t.push(r, e.substr(o, 3));
-  return t;
-}
-function b(e, r) {
-  return function(o) {
-    return m(o, e, r);
-  };
-}
-l.exports = m;
-l.exports.bindWith = b;
-var v = l.exports;
-const h = /* @__PURE__ */ f(v), c = {
-  createTemplate(e) {
-    const { styles: r } = e;
-    return `
-        <style>
-            ${r}
-        </style>
-        <div class="card">
-            <div class="author-area"></div>
-            <div class="blogposts-wrapper">
-                <div class="blogposts-area">fetching blog posts...</div>
-            </div>
-        </div>
-        `;
-  },
-  createAuthorArea(e) {
-    const { username: r, photo: o, name: t, tagline: s, followers: a, numFollowers: i } = e;
-    return `
-        <div class="author-profile-and-text">
-          ${o ? `<a class="flex" href="https://hashnode.com/@${r}">
-                    <img class="author-profile-photo" src="${o}" alt="${t}"/>
-                  </a>` : ""}
-          <div class="author-details">
-              <a href="https://hashnode.com/@${r}">
-                <div class="author-name">
-                    ${t}
-                </div>
-              </a>
-              ${s ? `<p class="author-tagline">${s}</p>` : ""}
-              ${i ? a === "false" ? "" : `<p class="author-followers">${h(
-      i
-    )} followers</p>` : ""}
-          </div>
-        </div>
-    `;
-  },
-  createBlogpostCard(e) {
-    const { username: r, slug: o, title: t, dateAdded: s, totalReactions: a, brief: i, coverImage: n } = e, u = new Date(s);
-    return `
-            <a class="post-link" 
-               href="https://${r}.hashnode.dev/${o}" 
-               target="_blank"
-               rel="noopener noreferrer"
-            >
-                <div class="post-card">
-                  <div class="post-card-text">
-                    <div class="post-title">${t}</div>
-                    <div class="post-date-and-reactions">
-                      <div class="post-date">
-                          <svg class="post-svg" viewBox="0 0 512 512">
-                              <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
-                          </svg>
-                          ${u.toDateString()}
-                      </div>
-                      <div class="post-reactions">
-                          <svg class="post-svg" viewBox="0 0 512 512">
-                              <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
-                          </svg>
-                          ${h(a)}
-                      </div>
-                    </div>
-                    ${i === "false" ? "" : `<p class="post-brief">${i}</p>`}
-                  </div>
-                    ${n === "false" ? "" : `<img 
-                            class="post-cover-image" 
-                            src="${n}" 
-                            alt="${t} cover" 
-                           />`}
-                </div>
-            </a>
-        `;
-  }
-}, d = {
+const d = {
   default: {
     background: {
-      primary: "#18191a",
+      primary: "#18191A",
       secondary: "#303031"
     },
     foreground: {
-      primary: "#ffffff",
-      secondary: "#bdbdbd"
+      primary: "#FFFFFF",
+      secondary: "#BDBDBD"
     }
   },
   devto: {
@@ -145,7 +19,7 @@ const h = /* @__PURE__ */ f(v), c = {
       secondary: "#171717"
     }
   },
-  "hashnode-light-mode": {
+  "hashnode-light": {
     background: {
       primary: "#FFFFFF",
       secondary: "#F8FAFC"
@@ -184,8 +58,38 @@ const h = /* @__PURE__ */ f(v), c = {
       primary: "#ECEFF4",
       secondary: "#D8DEE9"
     }
+  },
+  "gruvbox-light": {
+    background: {
+      primary: "#FBF1C7",
+      secondary: "#EBDBB2"
+    },
+    foreground: {
+      primary: "#B57614",
+      secondary: "#3C3836"
+    }
+  },
+  "gruvbox-dark": {
+    background: {
+      primary: "#282828",
+      secondary: "#3C3836"
+    },
+    foreground: {
+      primary: "#FABD2F",
+      secondary: "#EBDBB2"
+    }
+  },
+  synthwave: {
+    background: {
+      primary: "#000000",
+      secondary: "#2B2B2B"
+    },
+    foreground: {
+      primary: "#FF6B00",
+      secondary: "#00E7FF"
+    }
   }
-}, w = Object.keys(d) || [], x = (e) => (e ? w.includes(e) || (console.warn(
+}, b = Object.keys(d) || [], w = (e) => (e ? b.includes(e) || (console.warn(
   `selectedTheme's value of "${e}" doesn't match to any of the existing themes, using default theme for now`
 ), e = "default") : (console.warn("selectedTheme is undefined, using default theme for now"), e = "default"), `
     :host {
@@ -196,6 +100,39 @@ const h = /* @__PURE__ */ f(v), c = {
     }
     .flex {
         display: flex;
+    }
+    .justify-center {
+        justify-content: center;
+    }
+    .items-center {
+        align-items: center;
+    }
+    .w-100 {
+        width: 100%;
+    }
+    .mt-4 {
+        margin-top: 1rem !important;
+    }
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+    .ml-2 {
+        margin-left: 0.5rem !important;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-bg);
+    }
+    .loader > svg {
+        stroke: var(--secondary-fg);
+    }
+    .error-state {
+        background: var(--primary-bg);
     }
     .card * {
         margin: 0;
@@ -314,121 +251,267 @@ const h = /* @__PURE__ */ f(v), c = {
             height: min-content;
         }
     }
-`), p = {
-  getUser({ username: e }) {
-    return `
-      query GetUser {
+`);
+function F({ username: e }) {
+  return `
+      query GetUser($pageSize: Int!, $page: Int!) {
         user(username: "${e}") {
           name
           tagline
-          numFollowers
-          photo
-          numPosts
+          followersCount
+          profilePicture
+          posts(pageSize: $pageSize, page: $page) {
+            totalDocuments
+            edges {
+                node {
+                    id
+                    url
+                    title
+                    brief
+                    coverImage {
+                        url
+                    }
+                    publishedAt
+                    reactionCount
+                }
+            }
+          }
         }
       }
     `;
-  },
-  getUserArticles({ username: e }) {
-    return `
-        query GetUserArticles($page: Int!) {
-            user(username: "${e}") {
-                publication {
-                    posts(page: $page) {
-                        title,
-                        brief,
-                        totalReactions,
-                        slug,
-                        dateAdded,
-                        coverImage
-                    }
-                }
-            }
-        }
+}
+async function x(e) {
+  return fetch("https://gql.hashnode.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(e)
+  }).then((r) => r.json());
+}
+function k(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
+}
+var h = { exports: {} };
+function p(e, r, a) {
+  const s = a || ".";
+  let t;
+  {
+    let o;
+    switch (typeof e) {
+      case "string":
+        if (e.length < (e[0] === "-" ? 5 : 4))
+          return e;
+        t = e, o = Number(
+          s !== "." ? t.replace(s, ".") : t
+        );
+        break;
+      case "number":
+        t = String(e), o = e, s !== "." && !Number.isInteger(e) && (t = t.replace(".", s));
+        break;
+      default:
+        return e;
+    }
+    if (-1e3 < o && o < 1e3 || isNaN(o) || !isFinite(o))
+      return t;
+  }
+  {
+    const o = t.lastIndexOf(s);
+    let i;
+    o > -1 && (i = t.slice(o), t = t.slice(0, o));
+    const n = $(t, r || ",");
+    return i && n.push(i), n.join("");
+  }
+}
+function $(e, r) {
+  let a = (e.length - 1) % 3 + 1;
+  a === 1 && e[0] === "-" && (a = 4);
+  const s = [
+    // holds the string parts
+    e.slice(0, a)
+    // grab part before the first separator
+  ];
+  for (; a < e.length; a += 3)
+    s.push(r, e.substr(a, 3));
+  return s;
+}
+function _(e, r) {
+  return function(a) {
+    return p(a, e, r);
+  };
+}
+h.exports = p;
+h.exports.bindWith = _;
+var E = h.exports;
+const g = /* @__PURE__ */ k(E), m = `
+<svg 
+  width="24" 
+  height="24" 
+  stroke="#000" 
+  viewBox="0 0 24 24" 
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <style>.spinner_V8m1{transform-origin:center;animation:spinner_zKoa 2s linear infinite}.spinner_V8m1 circle{stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite}@keyframes spinner_zKoa{100%{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style>
+  <g class="spinner_V8m1">
+    <circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+  </g>
+</svg>
+`, S = (e = "fetching more posts...") => `
+<div class="flex justify-center items-center w-100 mt-4">
+  ${m}
+  <span class="ml-2">${e}</span>
+</div>`, C = (e = "Something went wrong!") => `
+<div class="error-state">
+  <div>${e}</div>
+</div>
+`, B = (e) => {
+  const { styles: r } = e;
+  return `
+        <style>
+            ${r}
+        </style>
+        <div class="loader">${m}</div>
+        <div class="card">
+            <div class="author-area"></div>
+            <div class="blogposts-wrapper">
+                <div class="blogposts-area"></div>
+            </div>
+        </div>
+        `;
+}, A = (e) => {
+  const { dataAttributes: r, user: a } = e;
+  if (!a)
+    return `${t} doesn't exist`;
+  const { showFollowers: s, username: t } = r, { name: o, tagline: i, followersCount: n, profilePicture: c } = a;
+  return `
+        <div class="author-profile-and-text">
+          ${c ? `<a class="flex" href="https://hashnode.com/@${t}">
+                    <img class="author-profile-photo" src="${c}" alt="${o}"/>
+                  </a>` : ""}
+          <div class="author-details">
+              <a href="https://hashnode.com/@${t}">
+                <div class="author-name">
+                    ${o}
+                </div>
+              </a>
+              ${i ? `<p class="author-tagline">${i}</p>` : ""}
+              ${s === "false" ? "" : n ? `<p class="author-followers">${g(
+    n
+  )} followers</p>` : ""}
+          </div>
+        </div>
     `;
-  }
-}, g = {
-  async fetcher(e) {
-    return fetch("https://api.hashnode.com/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(e)
-    }).then((r) => r.json());
-  }
-};
-class F extends HTMLElement {
+}, P = (e) => {
+  const { node: r, dataAttributes: a } = e, { showCoverImage: s, showBrief: t } = a, { url: o, title: i, publishedAt: n, reactionCount: c, brief: u, coverImage: f } = r, y = new Date(n), v = f.url;
+  return `
+            <a class="post-link" 
+               href="${o}" 
+               target="_blank"
+               rel="noopener noreferrer"
+            >
+                <div class="post-card">
+                  <div class="post-card-text">
+                    <div class="post-title">${i}</div>
+                    <div class="post-date-and-reactions">
+                      <div class="post-date">
+                          <svg class="post-svg" viewBox="0 0 512 512">
+                              <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
+                          </svg>
+                          ${y.toDateString()}
+                      </div>
+                      <div class="post-reactions">
+                          <svg class="post-svg" viewBox="0 0 512 512">
+                              <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
+                          </svg>
+                          ${g(c)}
+                      </div>
+                    </div>
+                    ${t === "false" ? "" : `<p class="post-brief">${u}</p>`}
+                  </div>
+                    ${s === "false" ? "" : `<img 
+                            class="post-cover-image" 
+                            src="${v}" 
+                            alt="${i} cover" 
+                           />`}
+                </div>
+            </a>
+        `;
+}, l = 20;
+class L extends HTMLElement {
   constructor() {
     super(), this._shadowRoot = this.attachShadow({ mode: "open" });
     const r = document.createElement("template");
-    r.innerHTML = c.createTemplate({
-      styles: x(this.dataset.theme)
-    }), this._shadowRoot.appendChild(r.content.cloneNode(!0)), this.currentPage = 0, this.postsFetched = [], this._GET_USER = p.getUser({
-      username: this.dataset.username.toLowerCase()
-    }), this._GET_USER_ARTICLES = p.getUserArticles({
-      username: this.dataset.username.toLowerCase()
+    r.innerHTML = B({
+      styles: w(this.dataset.theme)
+    }), this._shadowRoot.appendChild(r.content.cloneNode(!0)), this.currentPage = 1, this.fetchedPosts = [], this._GET_USER = F({
+      username: this.dataset.username
     });
   }
-  async fetchUser(r, o = {}) {
-    return g.fetcher({
+  async fetchUser(r, a = {}) {
+    return x({
       query: r,
-      variables: o
-    }).then(({ data: t }) => {
-      var s;
-      if (((s = t == null ? void 0 : t.user) == null ? void 0 : s.name) === null) {
-        this.renderUser(this.dataset.username + " doesn't exist");
+      variables: a
+    }).then(({ data: s }) => {
+      if (!(s != null && s.user)) {
+        this.renderUser({ user: null });
         return;
       }
-      this.fetchedUser = t.user, this.totalPosts = t.user.numPosts, this.renderUser(this.fetchedUser), this.fetchPosts(this._GET_USER_ARTICLES, { page: this.currentPage });
-    }).catch((t) => {
-      console.log(t);
+      this.fetchedUser = s.user;
+      const t = s.user.posts.edges ?? [];
+      this.fetchedPosts = [...this.fetchedPosts, ...t], this.totalPostsCount = s.user.posts.totalDocuments, this.renderUser({ user: this.fetchedUser }), this.renderPosts(t);
+    }).catch((s) => {
+      console.error(s), this.hideLoader();
+      const t = this._shadowRoot.querySelector(".card"), o = this._shadowRoot.querySelector(".author-area"), i = this._shadowRoot.querySelector(".blogposts-wrapper");
+      o.remove(), i.remove(), t.innerHTML = C();
     });
   }
+  hideLoader() {
+    const r = this._shadowRoot.querySelector(".loader");
+    r && r.classList.add("hidden");
+  }
   renderUser(r) {
-    const o = this._shadowRoot.querySelector(".author-area");
-    o.innerHTML = c.createAuthorArea({
-      username: this.dataset.username,
+    this.hideLoader();
+    const a = this._shadowRoot.querySelector(".author-area");
+    a.innerHTML = A({
+      dataAttributes: this.dataset,
       ...r
     });
   }
-  async fetchPosts(r, o = {}) {
-    return g.fetcher({ query: r, variables: o }).then(({ data: t }) => {
-      var a, i;
-      const s = ((i = (a = t == null ? void 0 : t.user) == null ? void 0 : a.publication) == null ? void 0 : i.posts) || [];
-      this.posts = s, this.postsFetched = [...this.postsFetched, ...s], this.renderPosts(this.posts);
-    });
-  }
   renderPosts(r) {
-    const o = this._shadowRoot.querySelector(".blogposts-wrapper"), t = this._shadowRoot.querySelector(".blogposts-area");
-    if (this.setHeight(), this.currentPage === 0 && (t.innerHTML = ""), !r.length && this.currentPage === 0) {
-      t.innerHTML = "no posts found.";
+    const a = this._shadowRoot.querySelector(".blogposts-wrapper"), s = this._shadowRoot.querySelector(".blogposts-area");
+    if (this.setHeight(), this.currentPage === 1 && (s.innerHTML = ""), !r.length && this.currentPage === 1) {
+      s.innerHTML = "no posts found.";
       return;
     }
-    const s = this._shadowRoot.querySelector(".blogposts-area-observer");
-    if (this.currentPage === 0 && this.totalPosts <= 6 && s && s.remove(), r.forEach((a) => {
-      t.innerHTML += c.createBlogpostCard({
-        username: this.dataset.username,
-        ...a
+    const t = this._shadowRoot.querySelector(".blogposts-area-observer");
+    if (this.currentPage === 1 && this.totalPostsCount <= l && t && t.remove(), r.forEach(({ node: o }) => {
+      s.innerHTML += P({
+        dataAttributes: this.dataset,
+        node: o
       });
-    }), this.totalPosts > this.postsFetched.length) {
-      if (!s) {
-        const a = document.createElement("div");
-        a.classList.add("blogposts-area-observer"), o.appendChild(a), new IntersectionObserver(
+    }), this.totalPostsCount > this.fetchedPosts.length) {
+      if (!t) {
+        const o = document.createElement("div");
+        o.classList.add("blogposts-area-observer"), a.appendChild(o), new IntersectionObserver(
           (n) => {
-            n[0].isIntersecting && (this.currentPage += 1, a.innerHTML = "fetching more posts...", this.fetchPosts(this._GET_USER_ARTICLES, {
+            n[0].isIntersecting && (this.currentPage += 1, o.innerHTML = S(), this.fetchUser(this._GET_USER, {
+              pageSize: l,
               page: this.currentPage
             }));
           },
           {
             threshold: 1
           }
-        ).observe(a);
+        ).observe(o);
       }
     } else
-      s.remove();
+      t && t.remove();
   }
   render() {
-    this.setWidth(), this.fetchUser(this._GET_USER);
+    this.setWidth(), this.fetchUser(this._GET_USER, {
+      pageSize: l,
+      page: 1
+    });
   }
   connectedCallback() {
     this.render();
@@ -442,11 +525,11 @@ class F extends HTMLElement {
   static get observedAttributes() {
     return ["data-width"];
   }
-  attributeChangedCallback(r, o, t) {
-    r == "data-width" && o != t && (this[r] = t);
+  attributeChangedCallback(r, a, s) {
+    r == "data-width" && a != s && (this[r] = s);
   }
 }
-customElements.define("hashnode-postcard", F);
+customElements.define("hashnode-postcard", L);
 export {
-  F as HashnodePostcard
+  L as HashnodePostcard
 };

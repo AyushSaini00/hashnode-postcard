@@ -1,7 +1,15 @@
-import domElements from "./domElements.js";
 import { styles } from "./postcard.style.js";
-import queries from "./queries.js";
-import utils from "./utils.js";
+import getUserQuery from "./queries/getUser.js";
+import fetcher from "./utils/fetcher.js";
+import {
+  createAuthorArea,
+  createBlogpostCard,
+  createTemplate,
+  ErrorState,
+  LoadingMoreItems,
+} from "./domElements.js";
+
+const MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO = 20; // max count allowed by hashnode API https://apidocs.hashnode.com/#introduction-item-8
 
 //extending to HTMLElements help to create custom html elements
 export class HashnodePostcard extends HTMLElement {
@@ -12,64 +20,68 @@ export class HashnodePostcard extends HTMLElement {
     this._shadowRoot = this.attachShadow({ mode: "open" });
 
     const template = document.createElement("template");
-    template.innerHTML = domElements.createTemplate({
+    template.innerHTML = createTemplate({
       styles: styles(this.dataset.theme),
     });
 
     //appends a clone of template to shadow DOM
     this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this.currentPage = 0;
-    this.postsFetched = [];
+    this.currentPage = 1;
+    this.fetchedPosts = [];
 
-    this._GET_USER = queries.getUser({
-      username: this.dataset.username.toLowerCase(),
-    });
-    this._GET_USER_ARTICLES = queries.getUserArticles({
-      username: this.dataset.username.toLowerCase(),
+    this._GET_USER = getUserQuery({
+      username: this.dataset.username,
     });
   }
 
   async fetchUser(query, variables = {}) {
-    return utils
-      .fetcher({
-        query,
-        variables,
-      })
+    return fetcher({
+      query,
+      variables,
+    })
       .then(({ data }) => {
-        //if user doesn't exists
-        if (data?.user?.name === null) {
-          this.renderUser(this.dataset.username + " doesn't exist");
+        if (!data?.user) {
+          this.renderUser({ user: null });
           return;
         }
-        this.fetchedUser = data.user;
-        this.totalPosts = data.user.numPosts;
 
-        this.renderUser(this.fetchedUser);
-        this.fetchPosts(this._GET_USER_ARTICLES, { page: this.currentPage });
+        this.fetchedUser = data.user;
+        const posts = data.user.posts.edges ?? [];
+
+        this.fetchedPosts = [...this.fetchedPosts, ...posts];
+        this.totalPostsCount = data.user.posts.totalDocuments;
+
+        this.renderUser({ user: this.fetchedUser });
+        this.renderPosts(posts);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
+        this.hideLoader();
+
+        const card = this._shadowRoot.querySelector(".card");
+        const authorArea = this._shadowRoot.querySelector(".author-area");
+        const blogpostsWrapperElem = this._shadowRoot.querySelector(".blogposts-wrapper");
+
+        authorArea.remove();
+        blogpostsWrapperElem.remove();
+
+        card.innerHTML = ErrorState();
       });
   }
 
-  renderUser(fetchedUser) {
-    const authorArea = this._shadowRoot.querySelector(".author-area");
-
-    authorArea.innerHTML = domElements.createAuthorArea({
-      username: this.dataset.username,
-      ...fetchedUser,
-    });
+  hideLoader() {
+    const loader = this._shadowRoot.querySelector(".loader");
+    if (loader) loader.classList.add("hidden");
   }
 
-  async fetchPosts(query, variables = {}) {
-    return utils.fetcher({ query, variables }).then(({ data }) => {
-      const posts = data?.user?.publication?.posts || [];
+  renderUser(fetchedUser) {
+    this.hideLoader();
 
-      this.posts = posts;
-      this.postsFetched = [...this.postsFetched, ...posts];
-
-      this.renderPosts(this.posts);
+    const authorArea = this._shadowRoot.querySelector(".author-area");
+    authorArea.innerHTML = createAuthorArea({
+      dataAttributes: this.dataset,
+      ...fetchedUser,
     });
   }
 
@@ -79,31 +91,34 @@ export class HashnodePostcard extends HTMLElement {
 
     this.setHeight();
 
-    if (this.currentPage === 0) {
+    if (this.currentPage === 1) {
       blogpostsArea.innerHTML = "";
     }
 
-    if (!posts.length && this.currentPage === 0) {
+    if (!posts.length && this.currentPage === 1) {
       blogpostsArea.innerHTML = "no posts found.";
       return;
     }
 
     const observerElem = this._shadowRoot.querySelector(".blogposts-area-observer");
     // remove the observer if it exits in below condition
-    if (this.currentPage === 0 && this.totalPosts <= 6) {
+    if (
+      this.currentPage === 1 &&
+      this.totalPostsCount <= MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO
+    ) {
       if (observerElem) {
         observerElem.remove();
       }
     }
 
-    posts.forEach((post) => {
-      blogpostsArea.innerHTML += domElements.createBlogpostCard({
-        username: this.dataset.username,
-        ...post,
+    posts.forEach(({ node }) => {
+      blogpostsArea.innerHTML += createBlogpostCard({
+        dataAttributes: this.dataset,
+        node,
       });
     });
 
-    if (this.totalPosts > this.postsFetched.length) {
+    if (this.totalPostsCount > this.fetchedPosts.length) {
       if (!observerElem) {
         const newObserverElem = document.createElement("div");
         newObserverElem.classList.add("blogposts-area-observer");
@@ -113,8 +128,9 @@ export class HashnodePostcard extends HTMLElement {
           (entries) => {
             if (entries[0].isIntersecting) {
               this.currentPage += 1;
-              newObserverElem.innerHTML = "fetching more posts...";
-              this.fetchPosts(this._GET_USER_ARTICLES, {
+              newObserverElem.innerHTML = LoadingMoreItems();
+              this.fetchUser(this._GET_USER, {
+                pageSize: MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO,
                 page: this.currentPage,
               });
             }
@@ -126,13 +142,16 @@ export class HashnodePostcard extends HTMLElement {
         observer.observe(newObserverElem);
       }
     } else {
-      observerElem.remove();
+      if (observerElem) observerElem.remove();
     }
   }
 
   render() {
     this.setWidth();
-    this.fetchUser(this._GET_USER);
+    this.fetchUser(this._GET_USER, {
+      pageSize: MAX_POSTS_COUNT_TO_FETCH_IN_ONE_GO,
+      page: 1,
+    });
   }
 
   connectedCallback() {

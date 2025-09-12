@@ -1,28 +1,61 @@
 import commaNumber from "comma-number";
 
-const domElements = {
-  createTemplate(props) {
-    const { styles } = props;
-    return `
+export const LoadingSpinner = `
+<svg 
+  width="24" 
+  height="24" 
+  stroke="#000" 
+  viewBox="0 0 24 24" 
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <style>.spinner_V8m1{transform-origin:center;animation:spinner_zKoa 2s linear infinite}.spinner_V8m1 circle{stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite}@keyframes spinner_zKoa{100%{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style>
+  <g class="spinner_V8m1">
+    <circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle>
+  </g>
+</svg>
+`;
+
+export const LoadingMoreItems = (loadMoreText = "fetching more posts...") => `
+<div class="flex justify-center items-center w-100 mt-4">
+  ${LoadingSpinner}
+  <span class="ml-2">${loadMoreText}</span>
+</div>`;
+
+export const ErrorState = (errMessage = "Something went wrong!") => `
+<div class="error-state">
+  <div>${errMessage}</div>
+</div>
+`;
+
+export const createTemplate = (props) => {
+  const { styles } = props;
+  return `
         <style>
             ${styles}
         </style>
+        <div class="loader">${LoadingSpinner}</div>
         <div class="card">
             <div class="author-area"></div>
             <div class="blogposts-wrapper">
-                <div class="blogposts-area">fetching blog posts...</div>
+                <div class="blogposts-area"></div>
             </div>
         </div>
         `;
-  },
-  createAuthorArea(props) {
-    const { username, photo, name, tagline, followers, numFollowers } = props;
-    return `
+};
+
+export const createAuthorArea = (props) => {
+  const { dataAttributes, user } = props;
+  if (!user) return `${username} doesn't exist`;
+
+  const { showFollowers, username } = dataAttributes;
+  const { name, tagline, followersCount, profilePicture } = user;
+
+  return `
         <div class="author-profile-and-text">
           ${
-            photo
+            profilePicture
               ? `<a class="flex" href="https://hashnode.com/@${username}">
-                    <img class="author-profile-photo" src="${photo}" alt="${name}"/>
+                    <img class="author-profile-photo" src="${profilePicture}" alt="${name}"/>
                   </a>`
               : ""
           }
@@ -34,26 +67,31 @@ const domElements = {
               </a>
               ${tagline ? `<p class="author-tagline">${tagline}</p>` : ""}
               ${
-                numFollowers
-                  ? followers === "false"
-                    ? ""
-                    : `<p class="author-followers">${commaNumber(
-                        numFollowers,
-                      )} followers</p>`
+                showFollowers === "false"
+                  ? ""
+                  : followersCount
+                  ? `<p class="author-followers">${commaNumber(
+                      followersCount,
+                    )} followers</p>`
                   : ""
               }
           </div>
         </div>
     `;
-  },
-  createBlogpostCard(props) {
-    const { username, slug, title, dateAdded, totalReactions, brief, coverImage } = props;
+};
 
-    const date = new Date(dateAdded);
+export const createBlogpostCard = (props) => {
+  const { node, dataAttributes } = props;
 
-    return `
+  const { showCoverImage, showBrief } = dataAttributes;
+  const { url, title, publishedAt, reactionCount, brief, coverImage } = node;
+
+  const date = new Date(publishedAt);
+  const coverImageUrl = coverImage.url;
+
+  return `
             <a class="post-link" 
-               href="https://${username}.hashnode.dev/${slug}" 
+               href="${url}" 
                target="_blank"
                rel="noopener noreferrer"
             >
@@ -71,24 +109,21 @@ const domElements = {
                           <svg class="post-svg" viewBox="0 0 512 512">
                               <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
                           </svg>
-                          ${commaNumber(totalReactions)}
+                          ${commaNumber(reactionCount)}
                       </div>
                     </div>
-                    ${brief === "false" ? "" : `<p class="post-brief">${brief}</p>`}
+                    ${showBrief === "false" ? "" : `<p class="post-brief">${brief}</p>`}
                   </div>
                     ${
-                      coverImage === "false"
+                      showCoverImage === "false"
                         ? ""
                         : `<img 
                             class="post-cover-image" 
-                            src="${coverImage}" 
+                            src="${coverImageUrl}" 
                             alt="${title} cover" 
                            />`
                     }
                 </div>
             </a>
         `;
-  },
 };
-
-export default domElements;

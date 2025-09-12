@@ -52,15 +52,15 @@ yarn add hashnode-postcard
 
 Following data attributes are available to customize the postcard.
 
-| data attribute   | description                                | examples   | type                          |
-| ---------------- | ------------------------------------------ | ---------- | ----------------------------- |
-| data-username    | your hashnode username                     | ayushcodes | required                      |
-| data-width       | width of the postcard                      | 600px      | optional                      |
-| data-height      | height of the blogposts wrapper            | 500px      | optional                      |
-| data-cover-image | to show the post cover images              | true       | optional (default is true)    |
-| data-followers   | to show the number of followers            | false      | optional (default is true)    |
-| data-brief       | to show the brief description of blogposts | true       | optional (default is true)    |
-| data-theme       | to change the theme of the interface       | default    | optional (default is default) |
+| data attribute        | description                                | examples   | type                          |
+| --------------------- | ------------------------------------------ | ---------- | ----------------------------- |
+| data-username         | your hashnode username                     | ayushcodes | required                      |
+| data-width            | width of the postcard                      | 600px      | optional                      |
+| data-height           | height of the blogposts wrapper            | 500px      | optional                      |
+| data-show-cover-image | to show the post cover images              | true       | optional (default is true)    |
+| data-show-followers   | to show the number of followers            | false      | optional (default is true)    |
+| data-show-brief       | to show the brief description of blogposts | true       | optional (default is true)    |
+| data-theme            | to change the theme of the interface       | default    | optional (default is default) |
 
 #### available themes
 
